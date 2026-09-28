@@ -36,7 +36,7 @@ export function PlaceMap({ region, regionKey, selected, onSelect, here }: Props)
           mapId={MAP_ID}
           defaultCenter={{ lat: region.center[1], lng: region.center[0] }}
           defaultZoom={region.zoom}
-          colorScheme={ColorScheme.FOLLOW_SYSTEM}
+          colorScheme={ColorScheme.DARK}
           gestureHandling="greedy"
           disableDefaultUI
           style={{ width: "100%", height: "100%" }}

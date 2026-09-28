@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "The home of nature audio, mapped to where you are.",
 };
 
-export const viewport: Viewport = { viewportFit: "cover", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { viewportFit: "cover", width: "device-width", initialScale: 1, themeColor: "#17281F", colorScheme: "dark" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

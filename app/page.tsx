@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Cover } from "@/components/Cover";
-import { Globe, Leaf, Lotus, Star, Walk } from "@/components/icons";
+import { Globe, Lotus, Star, Walk } from "@/components/icons";
 import { PieceList } from "@/components/PieceRow";
 import { usePlayer } from "@/components/Player";
 import { useLocation } from "@/components/useLocation";
@@ -30,7 +31,10 @@ export default function HomePage() {
   return (
     <div className="screen">
       <div className="top">
-        <div className="brand"><Leaf />NatureMe</div>
+        <div className="brand">
+          <Image src="/logo-mark.png" alt="" width={32} height={40} priority />
+          <Image src="/logo-wordmark.png" alt="NatureMe" width={122} height={18} priority />
+        </div>
         <div className="loc"><span className="dot" />{nearest.name} · {inside ? "here" : `${walk} min`}</div>
       </div>
       <div className="hello">

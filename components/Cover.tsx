@@ -24,7 +24,7 @@ function paint(cv: HTMLCanvasElement, seedText: string, colorVar: string) {
   const h = (cv.height = (cv.clientHeight || 56) * 2);
   const x = cv.getContext("2d");
   if (!x) return;
-  x.fillStyle = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim() || "#46743F";
+  x.fillStyle = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim() || "#75A07D";
   x.fillRect(0, 0, w, h);
   const g = x.createLinearGradient(0, 0, w, h);
   g.addColorStop(0, "rgba(255,255,255,.12)");
@@ -56,9 +56,6 @@ export function Cover({ piece, className = "cover", children }: { piece: Piece; 
     if (!cv) return;
     const draw = () => paint(cv, piece.title, color);
     draw();
-    const mq = matchMedia("(prefers-color-scheme: dark)");
-    mq.addEventListener("change", draw);
-    return () => mq.removeEventListener("change", draw);
   }, [piece.title, color]);
   return (
     <div className={className} style={{ ["--c" as string]: `var(${color})` }}>

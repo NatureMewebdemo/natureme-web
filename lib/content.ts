@@ -14,7 +14,7 @@ export interface Format {
 
 export const FORMATS: Record<FormatId, Format> = {
   story: { name: "Audio Story", plural: "Audio Stories", short: "Story", color: "--moss", description: "Short narratives about a species, a river, a season or a place." },
-  course: { name: "Course", plural: "Courses", short: "Course", color: "--accent", description: "Multi-lesson series that teach a skill or a practice around nature." },
+  course: { name: "Course", plural: "Courses", short: "Course", color: "--sky", description: "Multi-lesson series that teach a skill or a practice around nature." },
   audiobook: { name: "Audiobook", plural: "Audiobooks", short: "Audiobook", color: "--clay", description: "Full-length nature writing, narrated by authors or licensed readers." },
   summary: { name: "Summary", plural: "Summaries", short: "Summary", color: "--signal", description: "The core ideas of a nature book, in the time of a short walk." },
   podcast: { name: "Podcast", plural: "Podcasts", short: "Podcast", color: "--plum", description: "Episodic shows and conversations with the people who know the outdoors." },
