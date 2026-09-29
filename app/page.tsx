@@ -34,17 +34,17 @@ export default function HomePage() {
 
   return (
     <div className="screen">
-      <div className="top">
-        <div className="brand">
-          <Image src="/logo-mark.png" alt="" width={32} height={40} priority />
-          <Image src="/logo-wordmark.png" alt="NatureMe" width={122} height={18} priority />
+      <header className="hero">
+        <Image src="/home-beach.jpg" alt="" fill priority sizes="(max-width: 430px) 100vw, 430px" className="hero-img" />
+        <div className="hero-logo">
+          <Image src="/logo-vertical.png" alt="NatureMe" width={104} height={100} priority />
         </div>
-        <div className="loc"><span className="dot" />{nearest.name} · {inside ? "here" : `${walk} min`}</div>
-      </div>
-      <div className="hello">
-        <h1>{greeting()} The oaks are turning.</h1>
-        <p>Home of nature audio, mapped to where you are.</p>
-      </div>
+        <div className="hero-text">
+          <div className="loc"><span className="dot" />{nearest.name} · {inside ? "here" : `${walk} min`}</div>
+          <h1>{greeting()} The oaks are turning.</h1>
+          <p>Home of nature audio, mapped to where you are.</p>
+        </div>
+      </header>
 
       {outing && !snoozed && prefs?.calendar !== "skipped" && (
         <div className="gap">
