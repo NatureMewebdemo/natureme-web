@@ -2,6 +2,8 @@ import { WAYS, type FormatId, type WayId } from "./content";
 
 /** What the listener picked during onboarding. Kept in the browser until accounts exist. */
 export interface Preferences {
+  /** What Home calls the listener. Optional: older saves and skipped onboarding have none. */
+  name?: string;
   traditions: string[];
   formats: FormatId[];
   location: "allowed" | "skipped";

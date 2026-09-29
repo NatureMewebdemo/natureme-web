@@ -26,6 +26,10 @@ export default function ProfilePage() {
     clearPreferences();
     router.push("/welcome");
   };
+  const setName = (value: string) => {
+    const name = value.trim() || undefined;
+    if (prefs && name !== prefs.name) savePreferences({ ...prefs, name });
+  };
   const setCompanion = (on: boolean) => {
     if (prefs) savePreferences({ ...prefs, calendar: on ? "sample" : "skipped" });
   };
@@ -35,10 +39,25 @@ export default function ProfilePage() {
       <div className="profile-head">
         <span className="avatar"><User size={30} /></span>
         <div>
-          <h1>Your profile</h1>
+          <h1>{prefs?.name || "Your profile"}</h1>
           <p className="sec-sub">Listening on this device. Accounts come later.</p>
         </div>
       </div>
+
+      <label className="profile-name">
+        <span>Your name</span>
+        <input
+          key={prefs?.name ?? ""}
+          className="field"
+          placeholder="What should we call you?"
+          autoComplete="given-name"
+          maxLength={40}
+          defaultValue={prefs?.name ?? ""}
+          disabled={!prefs}
+          onBlur={(e) => setName(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
+        />
+      </label>
 
       <div className="log">
         <div><b className="mono">{Math.round(listened / 60)}</b><span>min listened</span></div>

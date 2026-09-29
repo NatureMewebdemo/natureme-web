@@ -271,8 +271,6 @@ p{margin:0}
 .hero-logo img{display:block;filter:drop-shadow(0 1px 6px rgba(255,255,255,.35))}
 .hero-text{position:relative;z-index:1;padding-inline:16px;padding-block:0 8px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .hero-text h1{font-size:30px;line-height:1.1;text-shadow:0 1px 12px rgba(0,0,0,.35)}
-.hero-text p{color:var(--paper);opacity:.85}
-.hero-text .loc{background:rgba(23,40,31,.55);border-color:rgba(247,245,239,.2);color:var(--paper);backdrop-filter:blur(6px)}
 /* profile */
 .profile-head{display:flex;align-items:center;gap:14px}
 .profile-head h1{font-size:28px}
@@ -286,3 +284,11 @@ p{margin:0}
 .profile-row svg{color:var(--muted);flex:none}
 .switch:disabled{opacity:.5}
 .back-link{font-size:14px;font-weight:600;color:var(--muted)}
+
+/* text field, used for the listener's name in onboarding and Profile */
+.field{width:100%;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit;font-size:15px}
+.field::placeholder{color:var(--muted)}
+.field:focus{outline:none;border-color:var(--sage)}
+.onb-hero .field{margin-top:8px;text-align:center}
+.profile-name{display:flex;flex-direction:column;gap:6px}
+.profile-name span{font-size:13px;font-weight:700;color:var(--muted)}
