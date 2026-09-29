@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Calendar, Leaf, Pause, Play } from "@/components/icons";
 import { PieceList } from "@/components/PieceRow";
@@ -100,7 +101,8 @@ export default function CompanionPage() {
   return (
     <div className="screen">
       <div>
-        <div className="eyebrow">Companion</div>
+        <Link href="/profile" className="back-link">‹ Profile</Link>
+        <div className="eyebrow" style={{ marginTop: 10 }}>Companion</div>
         <h1 style={{ fontSize: 28, marginTop: 6 }}>Your calendar, with a way outside</h1>
         <p className="sec-sub">Sample calendar · Google Calendar connects next</p>
       </div>

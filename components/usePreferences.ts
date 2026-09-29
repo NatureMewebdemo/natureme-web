@@ -1,11 +1,15 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { loadRaw, parsePreferences, type Preferences } from "@/lib/preferences";
+import { loadRaw, parsePreferences, PREFERENCES_EVENT, type Preferences } from "@/lib/preferences";
 
 const subscribe = (onChange: () => void) => {
   addEventListener("storage", onChange);
-  return () => removeEventListener("storage", onChange);
+  addEventListener(PREFERENCES_EVENT, onChange);
+  return () => {
+    removeEventListener("storage", onChange);
+    removeEventListener(PREFERENCES_EVENT, onChange);
+  };
 };
 
 /** Stored preferences; `undefined` while rendering on the server. */

@@ -10,6 +10,8 @@ export interface Preferences {
 }
 
 const KEY = "natureme.preferences.v1";
+/** Fired on window when preferences change in this tab (the storage event only covers other tabs). */
+export const PREFERENCES_EVENT = "natureme:preferences";
 
 export function loadRaw(): string | null {
   try {
@@ -34,6 +36,7 @@ export function loadPreferences(): Preferences | null {
 export function savePreferences(p: Preferences): void {
   try {
     localStorage.setItem(KEY, JSON.stringify(p));
+    dispatchEvent(new Event(PREFERENCES_EVENT));
   } catch {
     // Private windows can refuse storage; onboarding will just show again.
   }
@@ -42,6 +45,7 @@ export function savePreferences(p: Preferences): void {
 export function clearPreferences(): void {
   try {
     localStorage.removeItem(KEY);
+    dispatchEvent(new Event(PREFERENCES_EVENT));
   } catch {}
 }
 

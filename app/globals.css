@@ -273,3 +273,16 @@ p{margin:0}
 .hero-text h1{font-size:30px;line-height:1.1;text-shadow:0 1px 12px rgba(0,0,0,.35)}
 .hero-text p{color:var(--paper);opacity:.85}
 .hero-text .loc{background:rgba(23,40,31,.55);border-color:rgba(247,245,239,.2);color:var(--paper);backdrop-filter:blur(6px)}
+/* profile */
+.profile-head{display:flex;align-items:center;gap:14px}
+.profile-head h1{font-size:28px}
+.avatar{flex:none;width:60px;height:60px;border-radius:50%;background:var(--moss-soft);color:var(--sage);display:grid;place-items:center;border:1px solid var(--line)}
+.profile-card{background:var(--raised);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.profile-card h2{font-size:19px}
+.profile-card-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+.profile-ic{width:40px;height:40px;border-radius:12px;background:var(--moss-soft);color:var(--sage);display:grid;place-items:center}
+.profile-row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--surface);border-radius:12px;padding:12px}
+.profile-row b{display:block;font-size:14px}
+.profile-row svg{color:var(--muted);flex:none}
+.switch:disabled{opacity:.5}
+.back-link{font-size:14px;font-weight:600;color:var(--muted)}

@@ -37,7 +37,7 @@ export default function HomePage() {
       <header className="hero">
         <Image src="/home-beach.jpg" alt="" fill priority sizes="(max-width: 430px) 100vw, 430px" className="hero-img" />
         <div className="hero-logo">
-          <Image src="/logo-vertical.png" alt="NatureMe" width={104} height={100} priority />
+          <Image src="/logo-vertical.png" alt="NatureMe" width={78} height={75} priority />
         </div>
         <div className="hero-text">
           <div className="loc"><span className="dot" />{nearest.name} · {inside ? "here" : `${walk} min`}</div>
