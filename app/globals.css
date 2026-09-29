@@ -264,7 +264,7 @@ p{margin:0}
 .onb-gap .free{background:var(--moss-soft);color:var(--sage);border:1px dashed var(--sage)}
 .for-you-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 /* home hero: beach photo with the logo on the sand, greeting over the sea */
-.hero{position:relative;margin-inline:-16px;margin-top:-20px;height:460px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;color:var(--paper)}
+.hero{position:relative;margin-inline:-16px;margin-top:-20px;height:360px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;color:var(--paper)}
 .hero-img{object-fit:cover;object-position:50% 12%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(23,40,31,.35) 70%,var(--forest) 100%);pointer-events:none}
 .hero-logo{position:relative;z-index:1;display:flex;justify-content:center;padding-top:calc(24px + env(safe-area-inset-top,0px))}
