@@ -7,6 +7,7 @@ import { ALL_PLACES, FORMATS, piece } from "@/lib/content";
 import { clock, lengthSeconds } from "@/lib/duration";
 import { Cover } from "./Cover";
 import { Calendar, Close, Compass, Home, MapPin, Pause, Play } from "./icons";
+import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
 
 const TABS = [
@@ -20,6 +21,7 @@ export function Dock() {
   const path = usePathname();
   const { nowId, playing, position, toggle, openSheet } = usePlayer();
   const p = nowId ? piece(nowId) : null;
+  if (path === WELCOME_PATH) return null;
   return (
     <div className="dock">
       {p && (
