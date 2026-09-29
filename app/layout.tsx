@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { Dock, PlayerSheet } from "@/components/Dock";
+import { OnboardingGate } from "@/components/OnboardingGate";
 import { PlayerProvider } from "@/components/Player";
 import "./globals.css";
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <PlayerProvider>
+          <OnboardingGate />
           <div className="app">{children}</div>
           <Dock />
           <PlayerSheet />

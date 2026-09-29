@@ -14,7 +14,8 @@ Open http://localhost:3000. Without a key, the Map page shows a note instead of 
 
 ## What's here
 
-- **Home** (`app/page.tsx`): the calendar-gap card, pieces pinned near you, Top Picks this week, the three ways of seeing nature, and the six formats.
+- **Welcome** (`app/welcome`): first-run onboarding for interests, formats, location and calendar. Choices are kept in the browser (`lib/preferences.ts`) until accounts exist.
+- **Home** (`app/page.tsx`): the calendar-gap card, pieces pinned near you, For you (from onboarding), Top Picks this week, the three ways of seeing nature, and the six formats.
 - **Explore** (`app/explore`): Schools of thought, Cultures and Faiths, filterable by format.
 - **Map** (`app/map`): Google Maps with place-pinned audio, near you or on a trip.
 - **Companion** (`app/companion`): finds a free stretch in your calendar, picks a pinned place you can walk to, and logs the minutes each creator earned.

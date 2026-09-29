@@ -7,10 +7,12 @@ import { Cover } from "@/components/Cover";
 import { Globe, Lotus, Star, Walk } from "@/components/icons";
 import { PieceList } from "@/components/PieceRow";
 import { usePlayer } from "@/components/Player";
+import { usePreferences } from "@/components/usePreferences";
 import { useLocation } from "@/components/useLocation";
 import { timeRange, useOuting } from "@/components/useOuting";
 import { ALL_PLACES, FORMATS, piece, piecesAt, TOP_PICKS, WAYS, type FormatId, type WayId } from "@/lib/content";
 import { byDistance, isInside, walkMinutes } from "@/lib/geo";
+import { clearPreferences, forYou } from "@/lib/preferences";
 
 const WAY_ICONS: Record<WayId, typeof Lotus> = { schools: Lotus, cultures: Globe, faiths: Star };
 
@@ -24,6 +26,8 @@ export default function HomePage() {
   const outing = useOuting(here);
   const { play } = usePlayer();
   const [snoozed, setSnoozed] = useState(false);
+  const prefs = usePreferences();
+  const picks = prefs ? forYou(prefs, (id) => piece(id).format) : [];
   const nearest = byDistance(here, ALL_PLACES)[0];
   const inside = isInside(here, nearest);
   const walk = walkMinutes(here, nearest);
@@ -42,7 +46,7 @@ export default function HomePage() {
         <p>Home of nature audio, mapped to where you are.</p>
       </div>
 
-      {outing && !snoozed && (
+      {outing && !snoozed && prefs?.calendar !== "skipped" && (
         <div className="gap">
           <div className="eyebrow">Companion · a gap in your day</div>
           <h3>You have {outing.gap.minutes} free minutes. {outing.place.name} is {outing.walkMinutes} minutes away.</h3>
@@ -61,6 +65,16 @@ export default function HomePage() {
         <div className="near-head"><span className="pulse" />{inside ? `You're in ${nearest.name}` : `Pinned near you · ${nearest.name}`}</div>
         <PieceList ids={piecesAt(nearest.id).map((p) => p.id)} className={inside ? "rise" : ""} />
       </section>
+
+      {picks.length > 0 && (
+        <section>
+          <div className="sec-head">
+            <div><h2>For you</h2><div className="sec-sub">From the traditions you chose</div></div>
+            <Link href="/welcome" className="for-you-link" onClick={() => clearPreferences()}>Change</Link>
+          </div>
+          <div style={{ marginTop: 6 }}><PieceList ids={picks} /></div>
+        </section>
+      )}
 
       <section>
         <div className="sec-head"><div><h2>Top Picks this week</h2><div className="sec-sub">Chosen by NatureMe editors</div></div></div>
