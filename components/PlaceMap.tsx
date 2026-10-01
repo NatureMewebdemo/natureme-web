@@ -3,6 +3,7 @@
 import { AdvancedMarker, APIProvider, ColorScheme, Map } from "@vis.gl/react-google-maps";
 import { piecesAt, type Place, type Region } from "@/lib/content";
 import type { LatLng } from "@/lib/geo";
+import { fieldTally } from "@/lib/geofence";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 // Advanced markers need a Map ID; DEMO_MAP_ID works for development.
@@ -14,9 +15,11 @@ interface Props {
   selected: string;
   onSelect(id: string): void;
   here?: LatLng;
+  /** Captured geofenced pieces; places with some still to capture get a ring. */
+  captured?: string[];
 }
 
-export function PlaceMap({ region, regionKey, selected, onSelect, here }: Props) {
+export function PlaceMap({ region, regionKey, selected, onSelect, here, captured }: Props) {
   if (!API_KEY) {
     return (
       <div className="gmap">
@@ -41,11 +44,15 @@ export function PlaceMap({ region, regionKey, selected, onSelect, here }: Props)
           disableDefaultUI
           style={{ width: "100%", height: "100%" }}
         >
-          {region.places.map((pl: Place) => (
-            <AdvancedMarker key={pl.id} position={{ lat: pl.lat, lng: pl.lng }} onClick={() => onSelect(pl.id)} title={pl.name}>
-              <span className={`gpin${selected === pl.id ? " on" : ""}`}>{piecesAt(pl.id).length}</span>
-            </AdvancedMarker>
-          ))}
+          {region.places.map((pl: Place) => {
+            const f = captured && fieldTally(piecesAt(pl.id), captured);
+            const field = f && f.total ? (f.captured < f.total ? " field" : " field done") : "";
+            return (
+              <AdvancedMarker key={pl.id} position={{ lat: pl.lat, lng: pl.lng }} onClick={() => onSelect(pl.id)} title={pl.name}>
+                <span className={`gpin${selected === pl.id ? " on" : ""}${field}`}>{piecesAt(pl.id).length}</span>
+              </AdvancedMarker>
+            );
+          })}
           {here && (
             <AdvancedMarker position={here} title="You are here">
               <span className="gme" />

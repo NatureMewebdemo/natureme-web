@@ -51,6 +51,7 @@ export function UploadForm() {
   };
   const [traditionIds, setTraditions] = useState<string[]>([]);
   const [placeId, setPlaceId] = useState<string | undefined>();
+  const [onSite, setOnSite] = useState(false);
   const [regionId, setRegionId] = useState<RegionId>("near");
   const [saving, setSaving] = useState(false);
   const input = useRef<HTMLInputElement>(null);
@@ -67,6 +68,7 @@ export function UploadForm() {
     setPriceTouched(true);
     setTraditions(existing.traditionIds);
     setPlaceId(existing.placeId);
+    setOnSite(!!existing.onSite);
     setRegionId(regionOf(existing.placeId));
     setDuration(existing.durationSec);
   }, [existing]);
@@ -118,6 +120,7 @@ export function UploadForm() {
       format,
       traditionIds,
       placeId,
+      onSite: !!placeId && onSite,
       durationSec: Math.round(durationSec),
       price: isPaid(price) ? price : undefined,
       status,
@@ -277,6 +280,12 @@ export function UploadForm() {
             <button className="chip" aria-pressed={!placeId} onClick={() => setPlaceId(undefined)}>Not tied to a place</button>
           </div>
           <p className="note">Pinning a brand-new place comes with the NatureMe backend; for now choose one of the mapped places.</p>
+          {placeId && (
+            <div className="toggle-row">
+              <div><b>Only playable on site</b><p>Listeners have to walk to {ALL_PLACES.find((p) => p.id === placeId)?.name} to hear it. Once heard there, it&apos;s theirs to replay anywhere.</p></div>
+              <button className="switch" role="switch" aria-checked={onSite} aria-label="Only playable on site" onClick={() => setOnSite(!onSite)} />
+            </div>
+          )}
           <div className="form-actions">
             <button className="btn line" onClick={() => setStep(1)}>Back</button>
             <button className="btn solid" onClick={() => setStep(3)}>Next: review</button>
@@ -302,7 +311,7 @@ export function UploadForm() {
             <span>
               <b>{title || "Untitled"}</b>
               <br />
-              <span className="note">{FORMATS[format].name} · {lengthLabel(durationSec)} · {place ? place.name : "Anywhere"} · {priceLabel(isPaid(price) ? price : undefined)}</span>
+              <span className="note">{FORMATS[format].name} · {lengthLabel(durationSec)} · {place ? `${place.name}${onSite ? " (on site only)" : ""}` : "Anywhere"} · {priceLabel(isPaid(price) ? price : undefined)}</span>
             </span>
           </div>
           <div className="form-actions">

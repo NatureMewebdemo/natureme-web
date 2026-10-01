@@ -22,6 +22,14 @@ Open http://localhost:3000. Without a key, the Map page shows a note instead of 
 
 The catalogue in `lib/content.ts` is sample content. There are no audio files yet, so the player simulates playback at 10x speed. The Companion reads a sample calendar through the `CalendarSource` interface in `lib/calendar.ts`; Google Calendar plugs in there.
 
+## Going outside: web first, geofenced listening, daily habit
+
+- **Web first** (`app/manifest.ts`, `components/InstallPrompt.tsx`): NatureMe is an installable web app with nothing to download. After a first listen or on a return visit it offers to add NatureMe to the home screen (the browser's own prompt on Chrome, Edge and Android; Share then Add to Home Screen on iPhone). "Not now" keeps it quiet for 14 days (`lib/install.ts`).
+- **Geofenced pieces** (`lib/geofence.ts`): pieces marked `onSite` only play inside their place's pinned area. Away from it, the player shows walking directions instead. Hearing one on site captures it, so it replays anywhere afterwards; the Map shows your field collection. Creators can make an upload on-site only in the Studio. For trying it remotely, "Demo: pretend I'm here" on the Map or player stands you in a place for the current tab.
+- **Daily habit** (`lib/habit.ts`, `components/DailyGoal.tsx`): pick an audiobook or course and a goal of 1 to 3 chapters a day. Home shows today's chapter, the streak and the week; the player resumes where you stopped. "Add to my calendar" downloads a daily repeating reminder (.ics). Real push notifications need a server (Web Push with accounts).
+
+Everything is kept in the browser (localStorage) until accounts exist.
+
 ## Creator view: the Studio
 
 - **Dashboard** (`app/studio/page.tsx`): published count, plays, minutes listened and per-minute earnings (sample rate in `lib/studio.ts`), and every upload with Play, Edit, Publish/Unpublish and Delete.

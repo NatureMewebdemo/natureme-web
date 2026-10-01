@@ -43,6 +43,11 @@ export interface Piece {
   price?: number;
   /** Explore traditions a creator tagged; sample pieces are listed in WAYS instead. */
   traditionIds?: string[];
+  /**
+   * Geofenced: only plays inside its place's pinned area. Once heard there it
+   * is the listener's to replay anywhere (see lib/geofence.ts).
+   */
+  onSite?: boolean;
 }
 
 const list: Piece[] = [
@@ -87,21 +92,21 @@ const list: Piece[] = [
   { id: "walden", format: "summary", title: "Walden in twenty minutes", length: "20 min", by: "By a literature teacher" },
   { id: "first-light", format: "audiobook", title: "First light", length: "9 pieces", by: "Seasonal collection for early mornings", collection: true },
   // Pinned to places
-  { id: "oaks-lean", format: "story", title: "Why the oaks here lean the way they do", length: "11 min", by: "By a local naturalist", placeId: "lindenwood" },
+  { id: "oaks-lean", format: "story", title: "Why the oaks here lean the way they do", length: "11 min", by: "By a local naturalist", placeId: "lindenwood", onSite: true },
   { id: "canopy-birds", format: "course", title: "Birds of the Lindenwood canopy", length: "9 min", by: "By an ornithologist and field recordist", placeId: "lindenwood" },
-  { id: "tide-line", format: "story", title: "Reading the tide line", length: "9 min", by: "By a marine biologist", placeId: "gull-point" },
+  { id: "tide-line", format: "story", title: "Reading the tide line", length: "9 min", by: "By a marine biologist", placeId: "gull-point", onSite: true },
   { id: "waves", format: "meditation", title: "Breathing with the waves", length: "10 min", by: "By a mindfulness teacher", placeId: "gull-point" },
-  { id: "tracks", format: "course", title: "Tracks and sign on the Ridgeback", length: "4 lessons", by: "Wilderness Awareness School", placeId: "ridgeback", was: true },
+  { id: "tracks", format: "course", title: "Tracks and sign on the Ridgeback", length: "4 lessons", by: "Wilderness Awareness School", placeId: "ridgeback", onSite: true, was: true },
   { id: "switchbacks", format: "podcast", title: "Trail talk: the switchbacks", length: "28 min", by: "Episode 3 of Out on the Ridge", placeId: "ridgeback" },
-  { id: "otters", format: "story", title: "The otters who came back", length: "8 min", by: "By a keeper at the zoo", placeId: "riverside-zoo" },
+  { id: "otters", format: "story", title: "The otters who came back", length: "8 min", by: "By a keeper at the zoo", placeId: "riverside-zoo", onSite: true },
   { id: "aviary", format: "story", title: "Night sounds of the aviary", length: "7 min", by: "By a field recordist", placeId: "riverside-zoo" },
-  { id: "dawn-chorus", format: "meditation", title: "Dawn chorus sit", length: "16 min", by: "By the lodge naturalist", placeId: "fernhollow" },
+  { id: "dawn-chorus", format: "meditation", title: "Dawn chorus sit", length: "16 min", by: "By the lodge naturalist", placeId: "fernhollow", onSite: true },
   { id: "edge-woods", format: "audiobook", title: "A year at the edge of the woods", length: "6 h 20 min", by: "Narrated by the author", placeId: "fernhollow" },
   { id: "watershed", format: "course", title: "The valley, watershed to ridge", length: "6 lessons", by: "By a hydrologist", placeId: "sorrel-valley" },
-  { id: "beavers", format: "story", title: "How the beavers remade Sorrel Creek", length: "15 min", by: "By a restoration ecologist", placeId: "sorrel-valley" },
-  { id: "rainbow-falls", format: "story", title: "Rainbow Falls and the moʻo", length: "12 min", by: "By a Hawaiian cultural practitioner", placeId: "wailuku" },
-  { id: "fishponds", format: "podcast", title: "Loko iʻa: the fishponds", length: "33 min", by: "A conversation with fishpond restorers", placeId: "hilo-bay" },
-  { id: "ohia", format: "story", title: "ʻŌhiʻa and lehua", length: "10 min", by: "By a forest ecologist", placeId: "upland-reserve" },
+  { id: "beavers", format: "story", title: "How the beavers remade Sorrel Creek", length: "15 min", by: "By a restoration ecologist", placeId: "sorrel-valley", onSite: true },
+  { id: "rainbow-falls", format: "story", title: "Rainbow Falls and the moʻo", length: "12 min", by: "By a Hawaiian cultural practitioner", placeId: "wailuku", onSite: true },
+  { id: "fishponds", format: "podcast", title: "Loko iʻa: the fishponds", length: "33 min", by: "A conversation with fishpond restorers", placeId: "hilo-bay", onSite: true },
+  { id: "ohia", format: "story", title: "ʻŌhiʻa and lehua", length: "10 min", by: "By a forest ecologist", placeId: "upland-reserve", onSite: true },
 ];
 
 export const PIECES: Record<string, Piece> = Object.fromEntries(list.map((p) => [p.id, p]));
