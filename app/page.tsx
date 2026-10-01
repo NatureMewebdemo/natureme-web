@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Cover } from "@/components/Cover";
 import { Globe, Lotus, Star, Walk } from "@/components/icons";
 import { PieceList } from "@/components/PieceRow";
@@ -11,15 +11,18 @@ import { usePreferences } from "@/components/usePreferences";
 import { useLocation } from "@/components/useLocation";
 import { timeRange, useOuting } from "@/components/useOuting";
 import { ALL_PLACES, FORMATS, piece, piecesAt, TOP_PICKS, WAYS, type FormatId, type WayId } from "@/lib/content";
-import { byDistance, isInside, walkMinutes } from "@/lib/geo";
+import { byDistance, isInside } from "@/lib/geo";
 import { clearPreferences, forYou } from "@/lib/preferences";
 
 const WAY_ICONS: Record<WayId, typeof Lotus> = { schools: Lotus, cultures: Globe, faiths: Star };
 
 function greeting(d = new Date()) {
   const h = d.getHours();
-  return h < 12 ? "Good morning." : h < 18 ? "Good afternoon." : "Good evening.";
+  return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
 }
+
+// Home is prerendered, so the hour is only known in the browser.
+const noSubscribe = () => () => {};
 
 export default function HomePage() {
   const { here } = useLocation();
@@ -27,24 +30,22 @@ export default function HomePage() {
   const { play } = usePlayer();
   const [snoozed, setSnoozed] = useState(false);
   const prefs = usePreferences();
+  const hello = useSyncExternalStore(noSubscribe, greeting, () => null);
   const picks = prefs ? forYou(prefs, (id) => piece(id).format) : [];
   const nearest = byDistance(here, ALL_PLACES)[0];
   const inside = isInside(here, nearest);
-  const walk = walkMinutes(here, nearest);
 
   return (
     <div className="screen">
-      <div className="top">
-        <div className="brand">
-          <Image src="/logo-mark.png" alt="" width={32} height={40} priority />
-          <Image src="/logo-wordmark.png" alt="NatureMe" width={122} height={18} priority />
+      <header className="hero">
+        <Image src="/home-beach.jpg" alt="" fill priority sizes="(max-width: 430px) 100vw, 430px" className="hero-img" />
+        <div className="hero-logo">
+          <Image src="/logo-vertical.png" alt="NatureMe" width={78} height={75} priority />
         </div>
-        <div className="loc"><span className="dot" />{nearest.name} · {inside ? "here" : `${walk} min`}</div>
-      </div>
-      <div className="hello">
-        <h1>{greeting()} The oaks are turning.</h1>
-        <p>Home of nature audio, mapped to where you are.</p>
-      </div>
+        <div className="hero-text">
+          <h1>{hello && `${hello}${prefs?.name ? ` ${prefs.name}` : ""}`}</h1>
+        </div>
+      </header>
 
       {outing && !snoozed && prefs?.calendar !== "skipped" && (
         <div className="gap">

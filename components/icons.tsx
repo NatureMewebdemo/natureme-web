@@ -15,3 +15,5 @@ export const Globe = ({ size, ...p }: P) => (<svg {...base(size)} strokeWidth={1
 export const Star = ({ size, ...p }: P) => (<svg {...base(size)} strokeWidth={1.7} {...p}><path d="M12 3.5l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 16.4l-5.2 3.1 1.4-5.9-4.6-4 6-.5z" /></svg>);
 export const Play = ({ size = 16 }: { size?: number }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>);
 export const Pause = ({ size = 16 }: { size?: number }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden><rect x="6.5" y="5" width="4" height="14" rx="1" /><rect x="13.5" y="5" width="4" height="14" rx="1" /></svg>);
+export const User = ({ size, ...p }: P) => (<svg {...base(size)} {...p}><circle cx="12" cy="8.5" r="3.8" /><path d="M4.5 20c1.2-3.6 4.2-5.5 7.5-5.5s6.3 1.9 7.5 5.5" /></svg>);
+export const Chevron = ({ size = 18, ...p }: P) => (<svg {...base(size)} strokeWidth={2} {...p}><path d="M9 6l6 6-6 6" /></svg>);

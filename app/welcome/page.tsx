@@ -17,11 +17,12 @@ export default function WelcomePage() {
   const [formats, setFormats] = useState<FormatId[]>([]);
   const [location, setLocation] = useState<Preferences["location"]>("skipped");
   const [asking, setAsking] = useState(false);
+  const [name, setName] = useState("");
 
   const toggle = <T,>(list: T[], item: T) => (list.includes(item) ? list.filter((x) => x !== item) : [...list, item]);
 
   const finish = (calendar: Preferences["calendar"], overrides: Partial<Preferences> = {}) => {
-    savePreferences({ traditions, formats, location, calendar, completedAt: new Date().toISOString(), ...overrides });
+    savePreferences({ name: name.trim() || undefined, traditions, formats, location, calendar, completedAt: new Date().toISOString(), ...overrides });
     router.replace("/");
   };
 
@@ -51,6 +52,7 @@ export default function WelcomePage() {
           <Image src="/logo-vertical-dark.png" alt="NatureMe" width={200} height={275} priority />
           <h1>The home of nature audio</h1>
           <p>Stories, courses, audiobooks, podcasts and meditations, pinned to the places you walk.</p>
+          <input className="field" placeholder="What should we call you?" aria-label="Your name" autoComplete="given-name" maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
           <div className="onb-actions">
             <button className="btn solid onb-cta" onClick={() => setStep(1)}>Get started</button>
             <button className="onb-skip" onClick={() => finish("sample")}>Skip for now</button>
