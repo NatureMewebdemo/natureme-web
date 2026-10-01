@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { findPiece, piece, type Piece } from "@/lib/content";
 import { pieceSeconds } from "@/lib/duration";
-import { creditListen, creditPlay } from "./useStudio";
+import { buy as buyPiece, creditListen, creditPlay, isOwned as isOwnedNow, useStudio } from "./useStudio";
 
 /** Sample pieces have no audio yet, so their playback is simulated at ten times real speed. */
 export const DEMO_SPEED = 10;
@@ -15,10 +15,16 @@ interface PlayerState {
   /** Seconds listened this session; this is what creators are paid on. */
   listened: number;
   sheetOpen: boolean;
+  /** A creator listening to their own paid piece in the Studio. */
+  preview: boolean;
 }
 
 interface PlayerApi extends PlayerState {
-  play(id: string): void;
+  /** The current piece is paid and the listener hasn't bought it. */
+  locked: boolean;
+  play(id: string, opts?: { preview?: boolean }): void;
+  /** Buys the current piece and starts it. */
+  buy(): void;
   toggle(): void;
   seek(delta: number): void;
   openSheet(open: boolean): void;
@@ -32,13 +38,16 @@ function find(id: string | null): Piece | null {
 }
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
-  const [s, set] = useState<PlayerState>({ nowId: null, playing: false, position: 0, listened: 0, sheetOpen: false });
+  const [s, set] = useState<PlayerState>({ nowId: null, playing: false, position: 0, listened: 0, sheetOpen: false, preview: false });
   const state = useRef(s);
   useEffect(() => {
     state.current = s;
   });
   const audio = useRef<HTMLAudioElement | null>(null);
-  const src = find(s.nowId)?.audio;
+  const { owned } = useStudio();
+  const current = find(s.nowId);
+  const src = current?.audio;
+  const locked = !!current?.price && !owned.includes(current.id) && !s.preview;
 
   // Simulated playback for sample pieces.
   useEffect(() => {
@@ -92,11 +101,32 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     else a.pause();
   }, [src, s.nowId, s.playing]);
 
-  const play = useCallback((id: string) => {
-    if (state.current.nowId !== id) creditPlay(id);
-    set((p) => (p.nowId === id ? { ...p, playing: !p.playing } : { ...p, nowId: id, position: 0, playing: true, sheetOpen: true }));
+  const lockedRef = useRef(locked);
+  useEffect(() => {
+    lockedRef.current = locked;
+  });
+
+  const play = useCallback((id: string, opts?: { preview?: boolean }) => {
+    const preview = !!opts?.preview;
+    const cur = find(id);
+    // Paid pieces open on the buy screen instead of playing.
+    const mayPlay = !cur?.price || preview || isOwnedNow(id);
+    if (state.current.nowId !== id && mayPlay) creditPlay(id);
+    set((p) =>
+      p.nowId === id && p.preview === preview
+        ? { ...p, playing: mayPlay && !p.playing }
+        : { ...p, nowId: id, position: 0, playing: mayPlay, sheetOpen: true, preview },
+    );
+  }, []);
+  const buy = useCallback(() => {
+    const id = state.current.nowId;
+    if (!id) return;
+    buyPiece(id);
+    creditPlay(id);
+    set((p) => ({ ...p, playing: true }));
   }, []);
   const toggle = useCallback(() => {
+    if (lockedRef.current) return;
     set((p) => {
       const cur = find(p.nowId);
       if (!cur) return p;
@@ -106,6 +136,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     });
   }, []);
   const seek = useCallback((delta: number) => {
+    if (lockedRef.current) return;
     const p = state.current;
     const cur = find(p.nowId);
     if (!cur) return;
@@ -115,7 +146,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   }, []);
   const openSheet = useCallback((open: boolean) => set((p) => ({ ...p, sheetOpen: open })), []);
 
-  const api = useMemo(() => ({ ...s, play, toggle, seek, openSheet }), [s, play, toggle, seek, openSheet]);
+  const api = useMemo(() => ({ ...s, locked, play, buy, toggle, seek, openSheet }), [s, locked, play, buy, toggle, seek, openSheet]);
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }
 

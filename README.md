@@ -25,11 +25,11 @@ The catalogue in `lib/content.ts` is sample content. There are no audio files ye
 ## Creator view: the Studio
 
 - **Dashboard** (`app/studio/page.tsx`): published count, plays, minutes listened and per-minute earnings (sample rate in `lib/studio.ts`), and every upload with Play, Edit, Publish/Unpublish and Delete.
-- **Upload** (`app/studio/upload`): pick an audio file, add title, description, format and Explore tags, pin it to a place (suggested from the words you type or a pasted transcript), then automated checks decide whether it can go live.
+- **Upload** (`app/studio/upload`): pick an audio file (podcast, audiobook, audiobook summary, music, story, course or meditation), add title, description, Explore tags and a price (free, or any price from $0.99 to $99.99; audiobooks start at $9.99), pin it to a place (suggested from the words you type or a pasted transcript), then automated checks decide whether it can go live.
 - **Podcast feed** (`app/studio/import`): paste an RSS feed; `app/api/feed/route.ts` fetches it server-side, and each episode is auto-pinned to the places its notes mention.
 - **Profile** (`app/studio/profile`): the creator name shown as “By …” to listeners.
 
-Published uploads appear in the Listener view: in Explore (New from creators, and under the traditions they're tagged with), on the Map at their place, and in the player with real audio. Listening minutes are credited to the upload.
+Published uploads appear in the Listener view: in Explore (New from creators, and under the traditions they're tagged with), on the Map at their place, and in the player with real audio. Paid pieces open on a Buy screen; buying unlocks them on that device (no payment provider yet) and counts a sale. Free pieces earn per listened minute, paid pieces earn their price per sale.
 
 There is no backend yet. Uploads (including audio files) live in the browser's IndexedDB and the profile and listening totals in localStorage (`components/useStudio.ts`), so a creator's uploads are only visible in the browser they were made in. Making this real needs: creator accounts, file storage for audio (e.g. S3 or Vercel Blob), a database for pieces and places, server-side listen counting and payouts, AI moderation of the audio itself, speech-to-text transcripts for better place matching, and creators pinning brand-new places.
 

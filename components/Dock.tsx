@@ -9,6 +9,7 @@ import { Cover } from "./Cover";
 import { Calendar, Close, Compass, Home, MapPin, Pause, Play } from "./icons";
 import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
+import { priceLabel } from "@/lib/studio";
 import { isStudioPath } from "@/lib/views";
 
 const TABS = [
@@ -76,7 +77,7 @@ function Wave({ seedText, done }: { seedText: string; done: number }) {
 }
 
 export function PlayerSheet() {
-  const { nowId, playing, position, listened, sheetOpen, toggle, seek, openSheet } = usePlayer();
+  const { nowId, playing, position, listened, sheetOpen, locked, buy, toggle, seek, openSheet } = usePlayer();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && openSheet(false);
     addEventListener("keydown", onKey);
@@ -97,13 +98,23 @@ export function PlayerSheet() {
           <h2>{p.title}</h2>
           <p className="by" style={{ marginTop: 4 }}>{p.by}</p>
         </div>
-        <Wave seedText={p.title} done={position / total} />
-        <div className="times"><span>{clock(position)}</span><span>-{clock(total - position)}</span></div>
-        <div className="controls">
-          <button className="skip" onClick={() => seek(-15)}>↺<span>15</span></button>
-          <button className="pp" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>{playing ? <Pause size={26} /> : <Play size={26} />}</button>
-          <button className="skip" onClick={() => seek(30)}>↻<span>30</span></button>
-        </div>
+        {locked ? (
+          <div className="buy">
+            <p>The creator sells this {FORMATS[p.format].name.toLowerCase()}. Buy it once and it&apos;s yours to replay.</p>
+            <button className="btn solid onb-cta" onClick={buy}>Buy for {priceLabel(p.price)}</button>
+            <p className="demo-flag">Payments aren&apos;t connected yet: this unlocks it on this device and counts the sale for the creator.</p>
+          </div>
+        ) : (
+          <>
+            <Wave seedText={p.title} done={position / total} />
+            <div className="times"><span>{clock(position)}</span><span>-{clock(total - position)}</span></div>
+            <div className="controls">
+              <button className="skip" onClick={() => seek(-15)}>↺<span>15</span></button>
+              <button className="pp" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>{playing ? <Pause size={26} /> : <Play size={26} />}</button>
+              <button className="skip" onClick={() => seek(30)}>↻<span>30</span></button>
+            </div>
+          </>
+        )}
         <div className="meta-grid">
           <div><span>Pinned to</span><b>{ALL_PLACES.find((pl) => pl.id === p.placeId)?.name ?? "Anywhere"}</b></div>
           <div><span>You&apos;ve listened</span><b className="mono">{(listened / 60).toFixed(1)} min</b></div>

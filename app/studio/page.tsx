@@ -9,7 +9,7 @@ import { usePlayer } from "@/components/Player";
 import { Rss, UploadIcon } from "@/components/studio/icons";
 import { deleteUpload, saveUpload, useStudio } from "@/components/useStudio";
 import { ALL_PLACES, FORMATS } from "@/lib/content";
-import { canPublish, earnings, lengthLabel, money, RATE_PER_MINUTE, runChecks, toPiece, type Upload } from "@/lib/studio";
+import { canPublish, isPaid, lengthLabel, money, pieceEarnings, priceLabel, RATE_PER_MINUTE, runChecks, toPiece, type Upload } from "@/lib/studio";
 
 function Flash() {
   const params = useSearchParams();
@@ -36,7 +36,10 @@ export default function StudioDashboard() {
   const published = uploads.filter((u) => u.status === "published");
   const seconds = uploads.reduce((a, u) => a + (listens[u.id]?.seconds ?? 0), 0);
   const plays = uploads.reduce((a, u) => a + (listens[u.id]?.plays ?? 0), 0);
-  const top = Math.max(1, ...uploads.map((u) => listens[u.id]?.seconds ?? 0));
+  const sales = uploads.reduce((a, u) => a + (listens[u.id]?.sales ?? 0), 0);
+  const earnedBy = (u: Upload) => pieceEarnings(u.price, listens[u.id]);
+  const earned = uploads.reduce((a, u) => a + earnedBy(u), 0);
+  const top = Math.max(0.0001, ...uploads.map(earnedBy));
 
   const setStatus = (u: Upload, status: Upload["status"]) =>
     saveUpload({ ...u, status, publishedAt: status === "published" ? new Date().toISOString() : u.publishedAt });
@@ -64,7 +67,8 @@ export default function StudioDashboard() {
         <div className="stat"><b className="mono">{published.length}</b><span>published</span></div>
         <div className="stat"><b className="mono">{plays}</b><span>plays</span></div>
         <div className="stat"><b className="mono">{(seconds / 60).toFixed(1)}</b><span>minutes listened</span></div>
-        <div className="stat accent"><b className="mono">{money(earnings(seconds))}</b><span>earned</span></div>
+        <div className="stat"><b className="mono">{sales}</b><span>sales</span></div>
+        <div className="stat accent"><b className="mono">{money(earned)}</b><span>earned</span></div>
       </div>
 
       <div className="studio-grid">
@@ -101,14 +105,14 @@ export default function StudioDashboard() {
                       <div className="t">{u.title}</div>
                       <div className="m">
                         {FORMATS[u.format].short} · <span className="mono">{lengthLabel(u.durationSec)}</span> · {place ? place.name : "No place"}
-                        {u.source === "rss" && " · from feed"}
+                        {u.source === "rss" && " · from feed"} · {priceLabel(u.price)}
                       </div>
-                      <div className="m mono">{l ? `${l.plays} play${l.plays === 1 ? "" : "s"} · ${(l.seconds / 60).toFixed(1)} min · ${money(earnings(l.seconds))}` : "No listens yet"}</div>
+                      <div className="m mono">{l ? `${l.plays} play${l.plays === 1 ? "" : "s"} · ${(l.seconds / 60).toFixed(1)} min${isPaid(u.price) ? ` · ${l.sales ?? 0} sold` : ""} · ${money(earnedBy(u))}` : "No listens yet"}</div>
                     </div>
                     <span className={`status ${u.status}`}>{u.status === "published" ? "Live" : "Draft"}</span>
                     <div className="acts">
                       {u.status === "published" && (
-                        <button className="mini-btn" onClick={() => play(u.id)} aria-label={on ? "Pause" : "Play"}>{on ? <Pause size={12} /> : <Play size={12} />}{on ? "Pause" : "Play"}</button>
+                        <button className="mini-btn" onClick={() => play(u.id, { preview: true })} aria-label={on ? "Pause" : "Play"}>{on ? <Pause size={12} /> : <Play size={12} />}{on ? "Pause" : "Play"}</button>
                       )}
                       <Link className="mini-btn" href={`/studio/upload?id=${u.id}`}>Edit</Link>
                       {u.status === "published" ? (
@@ -129,16 +133,16 @@ export default function StudioDashboard() {
         <aside style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <section className="panel">
             <h2>Earnings</h2>
-            <p className="note">Paid per minute listened. Sample rate: {money(RATE_PER_MINUTE)} a minute. Payouts start once NatureMe has accounts.</p>
+            <p className="note">Free pieces are paid per minute listened (sample rate: {money(RATE_PER_MINUTE)} a minute). Paid pieces earn their price on every sale. Payouts start once NatureMe has accounts.</p>
             <div className="earn">
               {published.length === 0 && <p className="note">Publish something to start earning.</p>}
               {published.map((u) => {
-                const s = listens[u.id]?.seconds ?? 0;
+                const e = earnedBy(u);
                 return (
                   <div key={u.id} className="earn-row" style={{ ["--c" as string]: `var(${FORMATS[u.format].color})` }}>
                     <span>{u.title}</span>
-                    <span className="mono">{money(earnings(s))}</span>
-                    <span className="bar"><i style={{ width: `${(s / top) * 100}%` }} /></span>
+                    <span className="mono">{money(e)}</span>
+                    <span className="bar"><i style={{ width: `${(e / top) * 100}%` }} /></span>
                   </div>
                 );
               })}

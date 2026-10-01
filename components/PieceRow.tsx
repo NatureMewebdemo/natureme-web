@@ -1,6 +1,7 @@
 "use client";
 
 import { FORMATS, piece as getPiece } from "@/lib/content";
+import { priceLabel } from "@/lib/studio";
 import { Cover } from "./Cover";
 import { Pause, Play } from "./icons";
 import { usePlayer } from "./Player";
@@ -17,6 +18,7 @@ export function PieceRow({ id }: { id: string }) {
           {p.title}
           {p.was && <span className="badge">WAS</span>}
           {p.uploaded && <span className="badge">New</span>}
+          {p.price && <span className="badge price">{priceLabel(p.price)}</span>}
         </div>
         <div className="m">
           {FORMATS[p.format].short} · <span className="mono">{p.length}</span> · {p.by}

@@ -1,7 +1,7 @@
 // Sample catalogue for the Listener view. Place names and creator credits are
 // placeholders until real creator uploads exist.
 
-export type FormatId = "story" | "course" | "audiobook" | "summary" | "podcast" | "meditation";
+export type FormatId = "story" | "course" | "audiobook" | "summary" | "podcast" | "meditation" | "music";
 
 export interface Format {
   name: string;
@@ -16,9 +16,10 @@ export const FORMATS: Record<FormatId, Format> = {
   story: { name: "Audio Story", plural: "Audio Stories", short: "Story", color: "--moss", description: "Short narratives about a species, a river, a season or a place." },
   course: { name: "Course", plural: "Courses", short: "Course", color: "--sky", description: "Multi-lesson series that teach a skill or a practice around nature." },
   audiobook: { name: "Audiobook", plural: "Audiobooks", short: "Audiobook", color: "--clay", description: "Full-length nature writing, narrated by authors or licensed readers." },
-  summary: { name: "Summary", plural: "Summaries", short: "Summary", color: "--signal", description: "The core ideas of a nature book, in the time of a short walk." },
+  summary: { name: "Audiobook summary", plural: "Audiobook summaries", short: "Summary", color: "--signal", description: "The core ideas of a nature book, in the time of a short walk." },
   podcast: { name: "Podcast", plural: "Podcasts", short: "Podcast", color: "--plum", description: "Episodic shows and conversations with the people who know the outdoors." },
   meditation: { name: "Meditation", plural: "Meditations", short: "Meditation", color: "--teal", description: "Guided sessions from many schools of thought." },
+  music: { name: "Music", plural: "Music", short: "Music", color: "--rose", description: "Songs, ambient pieces and soundscapes made with or for the outdoors." },
 };
 
 export interface Piece {
@@ -38,6 +39,8 @@ export interface Piece {
   audio?: string;
   /** Published by a creator from the Studio. */
   uploaded?: boolean;
+  /** Price in US dollars set by the creator; free when absent or 0. */
+  price?: number;
   /** Explore traditions a creator tagged; sample pieces are listed in WAYS instead. */
   traditionIds?: string[];
 }

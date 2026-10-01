@@ -1,4 +1,5 @@
 /* Studio: the Creator view. Wider than the listener column, no dock. */
+:root{--rose:#D99AAE}
 .app:has(> .studio){max-width:980px;padding-bottom:48px}
 .studio-nav{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 16px 0;display:flex;flex-direction:column;gap:10px}
 .studio-brand{display:flex;align-items:center;gap:10px}
@@ -18,7 +19,7 @@
 .studio-grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media (min-width:820px){.studio-grid{grid-template-columns:1.6fr 1fr;align-items:start}}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media (min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:640px){.stats{grid-template-columns:repeat(5,1fr)}}
 .stat{background:var(--raised);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .stat b{font-family:var(--display);font-weight:400;font-size:26px}
 .stat span{font-size:12px;color:var(--muted)}
@@ -88,3 +89,11 @@ select.input{appearance:auto}
 .creator-card .avatar-sm{flex:none;width:44px;height:44px;border-radius:50%;background:var(--moss-soft);color:var(--sage);display:grid;place-items:center;font-family:var(--display);font-size:20px}
 .creator-link{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--moss-soft);border:1px solid color-mix(in srgb,var(--sage) 35%,var(--line));border-radius:14px;padding:12px 14px;font-size:14px}
 .creator-link b{color:var(--sage);white-space:nowrap}
+/* paid pieces in the listener view */
+.badge.price{background:var(--moss-soft);color:var(--sage)}
+.buy{display:flex;flex-direction:column;gap:12px;background:var(--raised);border:1px solid var(--line);border-radius:16px;padding:16px}
+.buy p{color:var(--muted);font-size:14px}
+.price-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.price-row .input{width:120px}
+.price-input{display:flex!important;flex-direction:row!important;align-items:center;gap:6px}
+.price-input span{font-size:16px;color:var(--ink)}

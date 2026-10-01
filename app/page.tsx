@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="sec-head"><div><h2>Everything you can hear</h2><div className="sec-sub">Six formats, published by creators</div></div></div>
+        <div className="sec-head"><div><h2>Everything you can hear</h2><div className="sec-sub">Every kind of nature audio, published by creators</div></div></div>
         <div className="fmt-grid" style={{ marginTop: 14 }}>
           {(Object.keys(FORMATS) as FormatId[]).map((k) => (
             <Link key={k} href={`/explore?format=${k}`} className="fmt-card" style={{ ["--c" as string]: `var(${FORMATS[k].color})` }}>

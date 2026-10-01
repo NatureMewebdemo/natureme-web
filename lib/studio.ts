@@ -15,6 +15,8 @@ export interface Upload {
   traditionIds: string[];
   placeId?: string;
   durationSec: number;
+  /** What listeners pay to own it, in US dollars; free when absent or 0. */
+  price?: number;
   status: UploadStatus;
   source: "upload" | "rss";
   /** Remote audio for RSS episodes; uploaded files are kept as blobs on the device. */
@@ -41,6 +43,30 @@ export function earnings(seconds: number, rate = RATE_PER_MINUTE): number {
   return (seconds / 60) * rate;
 }
 
+export const PRICE_MIN = 0.99;
+export const PRICE_MAX = 99.99;
+
+export const isPaid = (price: number | undefined): price is number => !!price && price > 0;
+
+/** Audiobooks are usually sold; everything else starts free. Creators can change either. */
+export function defaultPrice(format: FormatId): number | undefined {
+  return format === "audiobook" ? 9.99 : undefined;
+}
+
+export function priceLabel(price: number | undefined): string {
+  return isPaid(price) ? money(price) : "Free";
+}
+
+/**
+ * What a piece has earned the creator: free pieces are paid per listened
+ * minute, paid pieces by what listeners pay for them. The platform's cut is
+ * not decided yet, so this is the gross amount.
+ */
+export function pieceEarnings(price: number | undefined, l: { seconds: number; sales?: number } | undefined): number {
+  if (!l) return 0;
+  return isPaid(price) ? price * (l.sales ?? 0) : earnings(l.seconds);
+}
+
 export function money(usd: number): string {
   return usd.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: usd < 1 ? 3 : 2 });
 }
@@ -63,6 +89,7 @@ export function toPiece(u: Upload, creator: string, audio?: string): Piece {
     seconds: u.durationSec,
     by: creator ? `By ${creator}` : "By a NatureMe creator",
     placeId: u.placeId,
+    price: isPaid(u.price) ? u.price : undefined,
     audio,
     uploaded: true,
     traditionIds: u.traditionIds,
@@ -87,7 +114,7 @@ const SPAMMY = ["buy now", "discount code", "click here", "free money", "crypto"
  * pre-screening (direction from the WAS call). Real AI moderation of the
  * audio itself needs a server; these look at what the creator typed.
  */
-export function runChecks(u: Pick<Upload, "title" | "description" | "format" | "durationSec" | "placeId" | "traditionIds"> & { hasAudio: boolean }): Check[] {
+export function runChecks(u: Pick<Upload, "title" | "description" | "format" | "durationSec" | "placeId" | "traditionIds" | "price"> & { hasAudio: boolean }): Check[] {
   const text = `${u.title} ${u.description}`.toLowerCase();
   const blocked = BLOCKED.filter((w) => text.includes(w));
   const spam = SPAMMY.filter((w) => text.includes(w));
@@ -97,9 +124,10 @@ export function runChecks(u: Pick<Upload, "title" | "description" | "format" | "
     { id: "length", label: "At least 30 seconds long", ok: u.durationSec >= 30, blocking: true },
     { id: "title", label: "Title between 4 and 90 characters", ok: u.title.trim().length >= 4 && u.title.trim().length <= 90, blocking: true },
     { id: "safe", label: "Nothing harmful in the title or description", ok: blocked.length === 0, blocking: true, detail: blocked.length ? `Flagged: ${blocked.join(", ")}` : undefined },
+    { id: "price", label: "Free, or priced between $0.99 and $99.99", ok: !u.price || (u.price >= PRICE_MIN && u.price <= PRICE_MAX), blocking: true },
     { id: "description", label: "Description tells listeners what they'll hear", ok: u.description.trim().length >= 40, blocking: false, detail: "40 characters or more helps people choose." },
     { id: "spam", label: "No sales or spam language", ok: spam.length === 0, blocking: false, detail: spam.length ? `Found: ${spam.join(", ")}` : undefined },
-    { id: "fit", label: `Length suits a ${FORMATS[u.format].name.toLowerCase()}`, ok: fitsFormat(u.format, min), blocking: false, detail: formatHint(u.format) },
+    { id: "fit", label: `Length suits ${FORMATS[u.format].plural.toLowerCase()}`, ok: fitsFormat(u.format, min), blocking: false, detail: formatHint(u.format) },
     { id: "place", label: "Pinned to a place on the map", ok: !!u.placeId, blocking: false, detail: "Pinned pieces show up on the Map and when listeners walk by." },
     { id: "tradition", label: "Tagged with a school, culture or faith", ok: u.traditionIds.length > 0, blocking: false, detail: "Tags put the piece in Explore." },
   ];

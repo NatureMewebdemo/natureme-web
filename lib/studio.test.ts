@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canPublish, earnings, lengthLabel, parseDuration, parseRss, runChecks, suggestPlaces, toPiece, type Upload } from "./studio";
+import { canPublish, defaultPrice, earnings, pieceEarnings, priceLabel, lengthLabel, parseDuration, parseRss, runChecks, suggestPlaces, toPiece, type Upload } from "./studio";
 
 const base = { title: "Reading the tide line", description: "A slow walk along the wrack line at low tide, listening for what the sea left behind.", format: "story" as const, durationSec: 540, placeId: "gull-point", traditionIds: ["mindfulness"], hasAudio: true };
 
@@ -20,6 +20,29 @@ describe("runChecks", () => {
     const checks = runChecks({ ...base, placeId: undefined, traditionIds: [], description: "Short." });
     expect(canPublish(checks)).toBe(true);
     expect(checks.filter((c) => !c.ok).map((c) => c.id)).toEqual(["description", "place", "tradition"]);
+  });
+});
+
+describe("pricing", () => {
+  it("lets creators sell any piece within the price range", () => {
+    expect(canPublish(runChecks({ ...base, format: "music", price: 1.99 }))).toBe(true);
+    expect(canPublish(runChecks({ ...base, price: 0.5 }))).toBe(false);
+    expect(canPublish(runChecks({ ...base, price: 150 }))).toBe(false);
+    expect(canPublish(runChecks({ ...base, price: -1 }))).toBe(false);
+  });
+
+  it("suggests a price only for audiobooks", () => {
+    expect(defaultPrice("audiobook")).toBe(9.99);
+    expect(defaultPrice("music")).toBeUndefined();
+    expect(defaultPrice("podcast")).toBeUndefined();
+  });
+
+  it("pays paid pieces by sale and free pieces by minute", () => {
+    expect(pieceEarnings(4.99, { seconds: 6000, sales: 3 })).toBeCloseTo(14.97);
+    expect(pieceEarnings(undefined, { seconds: 600, sales: 0 })).toBeCloseTo(0.05);
+    expect(pieceEarnings(4.99, undefined)).toBe(0);
+    expect(priceLabel(undefined)).toBe("Free");
+    expect(priceLabel(4.99)).toBe("$4.99");
   });
 });
 
@@ -108,6 +131,7 @@ describe("earnings and pieces", () => {
 
   it("turns an upload into a listener piece", () => {
     const u: Upload = { ...base, id: "u-1", status: "published", source: "upload", createdAt: "2026-10-01T00:00:00Z" };
+    expect(toPiece({ ...u, price: 2.5 }, "Mara", "blob:x").price).toBe(2.5);
     expect(toPiece(u, "Mara", "blob:x")).toMatchObject({ id: "u-1", by: "By Mara", length: "9 min", seconds: 540, audio: "blob:x", uploaded: true, placeId: "gull-point" });
   });
 });

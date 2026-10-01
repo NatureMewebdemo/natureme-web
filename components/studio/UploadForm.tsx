@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PlaceMap } from "@/components/PlaceMap";
 import { newId, saveUpload, useStudio } from "@/components/useStudio";
 import { ALL_PLACES, FORMATS, REGIONS, WAYS, type FormatId, type RegionId, type WayId } from "@/lib/content";
-import { canPublish, lengthLabel, runChecks, suggestPlaces, type Upload } from "@/lib/studio";
+import { canPublish, defaultPrice, isPaid, lengthLabel, priceLabel, runChecks, suggestPlaces, type Upload } from "@/lib/studio";
 import { Alert, Tick, UploadIcon } from "./icons";
 
 const STEPS = ["Audio", "Details", "Place", "Publish"] as const;
@@ -40,7 +40,15 @@ export function UploadForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [transcript, setTranscript] = useState("");
-  const [format, setFormat] = useState<FormatId>("story");
+  const [format, setFormatRaw] = useState<FormatId>("story");
+  /** Price as typed; empty means free. */
+  const [priceText, setPriceText] = useState("");
+  const [priceTouched, setPriceTouched] = useState(false);
+  const setFormat = (f: FormatId) => {
+    setFormatRaw(f);
+    // Suggest the usual price for the format until the creator sets their own.
+    if (!priceTouched) setPriceText(defaultPrice(f)?.toFixed(2) ?? "");
+  };
   const [traditionIds, setTraditions] = useState<string[]>([]);
   const [placeId, setPlaceId] = useState<string | undefined>();
   const [regionId, setRegionId] = useState<RegionId>("near");
@@ -54,7 +62,9 @@ export function UploadForm() {
     filled.current = true;
     setTitle(existing.title);
     setDescription(existing.description);
-    setFormat(existing.format);
+    setFormatRaw(existing.format);
+    setPriceText(isPaid(existing.price) ? existing.price.toFixed(2) : "");
+    setPriceTouched(true);
     setTraditions(existing.traditionIds);
     setPlaceId(existing.placeId);
     setRegionId(regionOf(existing.placeId));
@@ -91,7 +101,9 @@ export function UploadForm() {
 
   const previewUrl = fileUrl ?? (existing ? existing.audioUrl ?? audio[existing.id] : undefined);
   const hasAudio = !!previewUrl;
-  const checks = runChecks({ title, description, format, durationSec, placeId, traditionIds, hasAudio });
+  const typed = Math.round(Number(priceText) * 100) / 100;
+  const price = priceText.trim() && Number.isFinite(typed) ? typed : undefined;
+  const checks = runChecks({ title, description, format, durationSec, placeId, traditionIds, hasAudio, price: priceText.trim() ? (isPaid(price) ? price : -1) : undefined });
   const ready = canPublish(checks);
   const suggestions = useMemo(() => suggestPlaces(`${title} ${description} ${transcript}`).slice(0, 3), [title, description, transcript]);
   const place = ALL_PLACES.find((p) => p.id === placeId);
@@ -107,6 +119,7 @@ export function UploadForm() {
       traditionIds,
       placeId,
       durationSec: Math.round(durationSec),
+      price: isPaid(price) ? price : undefined,
       status,
       source: existing?.source ?? "upload",
       audioUrl: existing?.audioUrl,
@@ -196,6 +209,22 @@ export function UploadForm() {
               ))}
             </div>
           </div>
+          <div className="form" style={{ gap: 8 }}>
+            <span className="field-label">Price <small>you choose; audiobooks are usually paid</small></span>
+            <div className="price-row">
+              <div className="chips" role="group" aria-label="Free or paid">
+                <button className="chip" aria-pressed={!priceText} onClick={() => { setPriceTouched(true); setPriceText(""); }}>Free</button>
+                <button className="chip" aria-pressed={!!priceText} onClick={() => { setPriceTouched(true); setPriceText(priceText || (defaultPrice(format) ?? 4.99).toFixed(2)); }}>Paid</button>
+              </div>
+              {!!priceText && (
+                <label className="price-input" aria-label="Price in US dollars">
+                  <span>$</span>
+                  <input className="input" inputMode="decimal" value={priceText} onChange={(e) => { setPriceTouched(true); setPriceText(e.target.value.replace(/[^0-9.]/g, "")); }} />
+                </label>
+              )}
+            </div>
+            <p className="note">{priceText ? "Listeners pay once to own it, and you earn what they pay." : "Free pieces earn per minute listened."}</p>
+          </div>
           {(Object.keys(WAYS) as WayId[]).map((w) => (
             <div key={w} className="form" style={{ gap: 8 }}>
               <span className="field-label">{WAYS[w].label} <small>optional, puts the piece in Explore</small></span>
@@ -273,7 +302,7 @@ export function UploadForm() {
             <span>
               <b>{title || "Untitled"}</b>
               <br />
-              <span className="note">{FORMATS[format].name} · {lengthLabel(durationSec)} · {place ? place.name : "Anywhere"}</span>
+              <span className="note">{FORMATS[format].name} · {lengthLabel(durationSec)} · {place ? place.name : "Anywhere"} · {priceLabel(isPaid(price) ? price : undefined)}</span>
             </span>
           </div>
           <div className="form-actions">

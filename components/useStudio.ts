@@ -11,6 +11,8 @@ import { EMPTY_PROFILE, toPiece, type CreatorProfile, type Upload } from "@/lib/
 export interface Listens {
   seconds: number;
   plays: number;
+  /** Times a listener bought a paid piece. */
+  sales?: number;
 }
 
 export interface StudioState {
@@ -22,13 +24,16 @@ export interface StudioState {
   /** Object URLs for uploaded audio files, by upload id. */
   audio: Record<string, string>;
   listens: Record<string, Listens>;
+  /** Paid pieces the listener on this device has bought. */
+  owned: string[];
 }
 
 const PROFILE_KEY = "natureme.creator.v1";
 const LISTENS_KEY = "natureme.listens.v1";
+const OWNED_KEY = "natureme.owned.v1";
 const DB = "natureme-studio";
 
-const SERVER: StudioState = { loaded: false, persistent: true, uploads: [], profile: EMPTY_PROFILE, audio: {}, listens: {} };
+const SERVER: StudioState = { loaded: false, persistent: true, uploads: [], profile: EMPTY_PROFILE, audio: {}, listens: {}, owned: [] };
 let state = SERVER;
 const listeners = new Set<() => void>();
 let loading: Promise<void> | null = null;
@@ -88,6 +93,7 @@ function tx<T>(stores: string[], mode: IDBTransactionMode, run: (t: IDBTransacti
 async function load() {
   const profile = readJson(PROFILE_KEY, EMPTY_PROFILE);
   const listens = readJson<Record<string, Listens>>(LISTENS_KEY, {});
+  const owned = readJson<{ ids: string[] }>(OWNED_KEY, { ids: [] }).ids;
   try {
     const uploads = (await tx<Upload[]>(["uploads"], "readonly", (t) => t.objectStore("uploads").getAll())) ?? [];
     const audio: Record<string, string> = {};
@@ -102,9 +108,9 @@ async function load() {
       }
     });
     uploads.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    update({ loaded: true, uploads, audio, profile, listens });
+    update({ loaded: true, uploads, audio, profile, listens, owned });
   } catch {
-    update({ loaded: true, persistent: false, profile, listens });
+    update({ loaded: true, persistent: false, profile, listens, owned });
   }
 }
 
@@ -183,6 +189,22 @@ export function creditPlay(id: string) {
   const listens = { ...state.listens, [id]: { ...cur, plays: cur.plays + 1 } };
   writeJson(LISTENS_KEY, listens);
   update({ listens });
+}
+
+export const isOwned = (id: string) => state.owned.includes(id);
+
+/**
+ * A listener buys a paid piece. There is no payment provider yet, so this
+ * unlocks it on this device and counts the sale for the creator.
+ */
+export function buy(id: string) {
+  if (isOwned(id)) return;
+  const owned = [...state.owned, id];
+  writeJson(OWNED_KEY, { ids: owned });
+  const cur = state.listens[id] ?? { seconds: 0, plays: 0 };
+  const listens = { ...state.listens, [id]: { ...cur, sales: (cur.sales ?? 0) + 1 } };
+  writeJson(LISTENS_KEY, listens);
+  update({ owned, listens });
 }
 
 export function newId(): string {
