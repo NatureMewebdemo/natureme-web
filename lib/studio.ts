@@ -14,6 +14,8 @@ export interface Upload {
   /** Explore traditions (schools, cultures, faiths) this piece belongs to. */
   traditionIds: string[];
   placeId?: string;
+  /** Only plays inside the pinned place (geofenced). */
+  onSite?: boolean;
   durationSec: number;
   /** What listeners pay to own it, in US dollars; free when absent or 0. */
   price?: number;
@@ -89,6 +91,7 @@ export function toPiece(u: Upload, creator: string, audio?: string): Piece {
     seconds: u.durationSec,
     by: creator ? `By ${creator}` : "By a NatureMe creator",
     placeId: u.placeId,
+    onSite: !!u.placeId && !!u.onSite,
     price: isPaid(u.price) ? u.price : undefined,
     audio,
     uploaded: true,

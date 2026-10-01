@@ -11,6 +11,7 @@ import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
 import { priceLabel } from "@/lib/studio";
 import { isStudioPath } from "@/lib/views";
+import { FenceNote, GoThere, HabitPanel } from "./SheetExtras";
 
 const TABS = [
   { href: "/", label: "Home", Icon: Home },
@@ -77,7 +78,7 @@ function Wave({ seedText, done }: { seedText: string; done: number }) {
 }
 
 export function PlayerSheet() {
-  const { nowId, playing, position, listened, sheetOpen, locked, buy, toggle, seek, openSheet } = usePlayer();
+  const { nowId, playing, position, listened, sheetOpen, locked, fence, buy, toggle, seek, openSheet } = usePlayer();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && openSheet(false);
     addEventListener("keydown", onKey);
@@ -98,7 +99,9 @@ export function PlayerSheet() {
           <h2>{p.title}</h2>
           <p className="by" style={{ marginTop: 4 }}>{p.by}</p>
         </div>
-        {locked ? (
+        {fence === "away" ? (
+          <GoThere piece={p} />
+        ) : locked ? (
           <div className="buy">
             <p>The creator sells this {FORMATS[p.format].name.toLowerCase()}. Buy it once and it&apos;s yours to replay.</p>
             <button className="btn solid onb-cta" onClick={buy}>Buy for {priceLabel(p.price)}</button>
@@ -113,6 +116,8 @@ export function PlayerSheet() {
               <button className="pp" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>{playing ? <Pause size={26} /> : <Play size={26} />}</button>
               <button className="skip" onClick={() => seek(30)}>↻<span>30</span></button>
             </div>
+            <FenceNote fence={fence} piece={p} />
+            <HabitPanel piece={p} position={position} />
           </>
         )}
         <div className="meta-grid">

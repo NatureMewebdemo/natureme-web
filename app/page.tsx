@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Cover } from "@/components/Cover";
+import { DailyGoal } from "@/components/DailyGoal";
 import { Globe, Lotus, Star, Walk } from "@/components/icons";
 import { PieceList } from "@/components/PieceRow";
 import { usePlayer } from "@/components/Player";
@@ -60,6 +61,8 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      <DailyGoal />
 
       <section className="near">
         <div className="near-head"><span className="pulse" />{inside ? `You're in ${nearest.name}` : `Pinned near you · ${nearest.name}`}</div>

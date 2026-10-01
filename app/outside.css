@@ -1,0 +1,54 @@
+/* Going outside: geofenced listening, the daily habit, and the install prompt. */
+
+/* geofenced pieces */
+.badge.fence{background:var(--accent-soft);color:var(--sage)}
+.badge.fence.away{background:var(--raised);color:var(--muted);border:1px dashed var(--line)}
+.fence-card{display:flex;flex-direction:column;gap:12px;background:var(--moss-soft);border:1px dashed var(--sage);border-radius:16px;padding:16px}
+.fence-card p{font-size:14px;color:var(--muted);margin-top:4px}
+.fence-ic{width:40px;height:40px;border-radius:12px;background:var(--sage);color:var(--forest);display:grid;place-items:center}
+.fence-actions{display:flex;gap:10px;flex-wrap:wrap}
+.fence-note{font-size:13px;color:var(--sage);text-align:center}
+.demo-link{font-size:12.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+.field-row{display:flex;flex-direction:column;gap:6px;font-size:13.5px;background:var(--moss-soft);border-radius:12px;padding:10px 12px;margin-block:4px}
+.field-row.demo-on{background:var(--signal-soft);color:var(--signal)}
+.field-row.demo-on .demo-link{color:var(--signal)}
+.field{display:flex;flex-direction:column;gap:6px;background:var(--raised);border:1px solid var(--line);border-radius:16px;padding:16px}
+.field h3{font-size:20px}
+.field p{font-size:13.5px;color:var(--muted)}
+.field-bar{height:6px;border-radius:3px;background:var(--ground);overflow:hidden;margin-top:4px}
+.field-bar i{display:block;height:100%;background:var(--sage)}
+.gpin.field{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--signal)}
+.gpin.field.done{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--sage)}
+
+/* daily habit */
+.habit{background:var(--raised);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.habit h3{font-size:21px;line-height:1.2}
+.habit-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.habit-sub{color:var(--muted);font-size:14px;margin-top:-6px}
+.streak{font-size:12px;color:var(--signal);background:var(--signal-soft);border-radius:999px;padding:4px 10px}
+.today-goal{display:flex;gap:12px;align-items:center;font-size:13.5px;color:var(--muted)}
+.today-goal b{font-size:22px;color:var(--ink);font-weight:500}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.week span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.week i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line)}
+.week .met i{background:var(--sage);border-color:var(--sage)}
+.week .today{color:var(--ink);font-weight:500}
+.week .today i{border-color:var(--ink)}
+.reminder{display:flex;flex-wrap:wrap;align-items:end;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.reminder label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
+.reminder .input{width:auto;padding:8px 10px;font-size:14px}
+.habit-panel{display:flex;flex-direction:column;gap:8px;background:var(--raised);border:1px solid var(--line);border-radius:14px;padding:12px}
+.habit-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.chapters{display:flex;gap:3px}
+.chapters i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.chapters i.done{background:var(--sage)}
+.chapters i.now{background:var(--signal)}
+
+/* install prompt */
+.install{display:flex;align-items:center;gap:10px;margin:12px 16px 0;padding:10px 10px 10px 12px;background:var(--raised);border:1px solid var(--line);border-radius:16px}
+.install-icon{flex:none;border-radius:10px}
+.install-txt{flex:1;min-width:0;font-size:13px}
+.install-txt b{font-size:14px}
+.install-txt p{color:var(--muted);line-height:1.35}
+.install .btn{padding:8px 14px}
+.install-x{flex:none;color:var(--muted);padding:4px}

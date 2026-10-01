@@ -1,5 +1,7 @@
-/** Seconds for a display length like "14 min" or "6 h 20 min"; lessons count as 12 minutes. */
+/** Seconds for a display length like "14 min" or "6 h 20 min"; each lesson or collected piece counts as 12 minutes. */
 export function lengthSeconds(length: string): number {
+  const n = /(\d+)\s*(lessons?|pieces?)/.exec(length);
+  if (n) return Number(n[1]) * 12 * 60;
   const h = /(\d+)\s*h\s*(\d+)?/.exec(length);
   if (h) return (Number(h[1]) * 60 + Number(h[2] ?? 0)) * 60;
   const m = /(\d+)\s*min/.exec(length);
