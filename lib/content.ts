@@ -1,7 +1,7 @@
 // Sample catalogue for the Listener view. Place names and creator credits are
 // placeholders until real creator uploads exist.
 
-export type FormatId = "story" | "course" | "audiobook" | "summary" | "podcast" | "meditation";
+export type FormatId = "story" | "course" | "audiobook" | "summary" | "podcast" | "meditation" | "music";
 
 export interface Format {
   name: string;
@@ -16,9 +16,10 @@ export const FORMATS: Record<FormatId, Format> = {
   story: { name: "Audio Story", plural: "Audio Stories", short: "Story", color: "--moss", description: "Short narratives about a species, a river, a season or a place." },
   course: { name: "Course", plural: "Courses", short: "Course", color: "--sky", description: "Multi-lesson series that teach a skill or a practice around nature." },
   audiobook: { name: "Audiobook", plural: "Audiobooks", short: "Audiobook", color: "--clay", description: "Full-length nature writing, narrated by authors or licensed readers." },
-  summary: { name: "Summary", plural: "Summaries", short: "Summary", color: "--signal", description: "The core ideas of a nature book, in the time of a short walk." },
+  summary: { name: "Audiobook summary", plural: "Audiobook summaries", short: "Summary", color: "--signal", description: "The core ideas of a nature book, in the time of a short walk." },
   podcast: { name: "Podcast", plural: "Podcasts", short: "Podcast", color: "--plum", description: "Episodic shows and conversations with the people who know the outdoors." },
   meditation: { name: "Meditation", plural: "Meditations", short: "Meditation", color: "--teal", description: "Guided sessions from many schools of thought." },
+  music: { name: "Music", plural: "Music", short: "Music", color: "--rose", description: "Songs, ambient pieces and soundscapes made with or for the outdoors." },
 };
 
 export interface Piece {
@@ -32,6 +33,16 @@ export interface Piece {
   /** Made by NatureMe with Wilderness Awareness School. */
   was?: boolean;
   collection?: boolean;
+  /** Exact length in seconds, when known (creator uploads). */
+  seconds?: number;
+  /** Playable audio URL; sample pieces have none and play simulated. */
+  audio?: string;
+  /** Published by a creator from the Studio. */
+  uploaded?: boolean;
+  /** Price in US dollars set by the creator; free when absent or 0. */
+  price?: number;
+  /** Explore traditions a creator tagged; sample pieces are listed in WAYS instead. */
+  traditionIds?: string[];
 }
 
 const list: Piece[] = [
@@ -95,8 +106,30 @@ const list: Piece[] = [
 
 export const PIECES: Record<string, Piece> = Object.fromEntries(list.map((p) => [p.id, p]));
 
+// Creator uploads published from the Studio, kept beside the sample catalogue.
+const uploads = new Map<string, Piece>();
+
+export function setUploadedPieces(pieces: Piece[]): void {
+  uploads.clear();
+  for (const p of pieces) uploads.set(p.id, p);
+}
+
+export function uploadedPieces(): Piece[] {
+  return [...uploads.values()];
+}
+
+/** A tradition's pieces: the sample ones, then creator uploads tagged with it. */
+export function traditionPieceIds(t: Tradition): string[] {
+  return [...t.pieceIds, ...uploadedPieces().filter((p) => p.traditionIds?.includes(t.id)).map((p) => p.id)];
+}
+
+/** Like `piece`, but undefined for an unknown id (an upload deleted while it was playing). */
+export function findPiece(id: string): Piece | undefined {
+  return PIECES[id] ?? uploads.get(id);
+}
+
 export function piece(id: string): Piece {
-  const p = PIECES[id];
+  const p = findPiece(id);
   if (!p) throw new Error(`Unknown piece: ${id}`);
   return p;
 }
@@ -207,7 +240,7 @@ export const REGIONS: Record<RegionId, Region> = {
 export const ALL_PLACES: Place[] = Object.values(REGIONS).flatMap((r) => r.places);
 
 export function piecesAt(placeId: string): Piece[] {
-  return list.filter((p) => p.placeId === placeId);
+  return [...list, ...uploads.values()].filter((p) => p.placeId === placeId);
 }
 
 /** Where the listener is when the browser can't share a location. */

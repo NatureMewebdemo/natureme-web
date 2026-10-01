@@ -1,14 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { PieceList } from "@/components/PieceRow";
 import { PlaceMap } from "@/components/PlaceMap";
 import { useLocation } from "@/components/useLocation";
+import { useStudio } from "@/components/useStudio";
 import { piecesAt, REGIONS, type RegionId } from "@/lib/content";
 import { walkMinutes } from "@/lib/geo";
 
 export default function MapPage() {
   const { here } = useLocation();
+  useStudio(); // pins update when creators publish
   const [regionId, setRegionId] = useState<RegionId>("near");
   const region = REGIONS[regionId];
   const [selected, setSelected] = useState(region.places[0].id);
@@ -45,6 +48,7 @@ export default function MapPage() {
         <div><b>Tell me when I&apos;m near something</b><p>Pieces pinned to where you&apos;re standing rise to the top of Home.</p></div>
         <button className="switch" role="switch" aria-checked={notify} aria-label="Nearby alerts" onClick={() => setNotify(!notify)} />
       </div>
+      <Link href="/studio/upload" className="creator-link"><span>Recorded something at a place like this? Pin it for listeners.</span><b>Studio</b></Link>
       <div className="steps3">
         <div className="step3"><b>Explore by place</b><span>See what&apos;s been recorded near you, or somewhere you&apos;re travelling to.</span></div>
         <div className="step3"><b>Arrive and listen</b><span>Pieces pinned to where you&apos;re standing rise to the top of the app.</span></div>
