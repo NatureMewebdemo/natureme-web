@@ -14,3 +14,8 @@ export function clock(seconds: number): string {
   const x = String(s % 60).padStart(2, "0");
   return h ? `${h}:${String(m).padStart(2, "0")}:${x}` : `${m}:${x}`;
 }
+
+/** A piece's length in seconds: exact for creator uploads, estimated from the label otherwise. */
+export function pieceSeconds(p: { length: string; seconds?: number }): number {
+  return p.seconds ?? lengthSeconds(p.length);
+}

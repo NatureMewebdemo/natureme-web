@@ -32,6 +32,14 @@ export interface Piece {
   /** Made by NatureMe with Wilderness Awareness School. */
   was?: boolean;
   collection?: boolean;
+  /** Exact length in seconds, when known (creator uploads). */
+  seconds?: number;
+  /** Playable audio URL; sample pieces have none and play simulated. */
+  audio?: string;
+  /** Published by a creator from the Studio. */
+  uploaded?: boolean;
+  /** Explore traditions a creator tagged; sample pieces are listed in WAYS instead. */
+  traditionIds?: string[];
 }
 
 const list: Piece[] = [
@@ -95,8 +103,30 @@ const list: Piece[] = [
 
 export const PIECES: Record<string, Piece> = Object.fromEntries(list.map((p) => [p.id, p]));
 
+// Creator uploads published from the Studio, kept beside the sample catalogue.
+const uploads = new Map<string, Piece>();
+
+export function setUploadedPieces(pieces: Piece[]): void {
+  uploads.clear();
+  for (const p of pieces) uploads.set(p.id, p);
+}
+
+export function uploadedPieces(): Piece[] {
+  return [...uploads.values()];
+}
+
+/** A tradition's pieces: the sample ones, then creator uploads tagged with it. */
+export function traditionPieceIds(t: Tradition): string[] {
+  return [...t.pieceIds, ...uploadedPieces().filter((p) => p.traditionIds?.includes(t.id)).map((p) => p.id)];
+}
+
+/** Like `piece`, but undefined for an unknown id (an upload deleted while it was playing). */
+export function findPiece(id: string): Piece | undefined {
+  return PIECES[id] ?? uploads.get(id);
+}
+
 export function piece(id: string): Piece {
-  const p = PIECES[id];
+  const p = findPiece(id);
   if (!p) throw new Error(`Unknown piece: ${id}`);
   return p;
 }
@@ -207,7 +237,7 @@ export const REGIONS: Record<RegionId, Region> = {
 export const ALL_PLACES: Place[] = Object.values(REGIONS).flatMap((r) => r.places);
 
 export function piecesAt(placeId: string): Piece[] {
-  return list.filter((p) => p.placeId === placeId);
+  return [...list, ...uploads.values()].filter((p) => p.placeId === placeId);
 }
 
 /** Where the listener is when the browser can't share a location. */

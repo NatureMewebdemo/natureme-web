@@ -16,6 +16,7 @@ export function PieceRow({ id }: { id: string }) {
         <div className="t">
           {p.title}
           {p.was && <span className="badge">WAS</span>}
+          {p.uploaded && <span className="badge">New</span>}
         </div>
         <div className="m">
           {FORMATS[p.format].short} · <span className="mono">{p.length}</span> · {p.by}

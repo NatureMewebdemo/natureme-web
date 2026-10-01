@@ -1,8 +1,10 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { PieceList } from "@/components/PieceRow";
-import { FORMATS, piece, WAYS, type FormatId, type WayId } from "@/lib/content";
+import { useStudio } from "@/components/useStudio";
+import { FORMATS, piece, traditionPieceIds, uploadedPieces, WAYS, type FormatId, type WayId } from "@/lib/content";
 
 export function Explore() {
   const params = useSearchParams();
@@ -12,6 +14,8 @@ export function Explore() {
   const fmtParam = params.get("format");
   const format = fmtParam && fmtParam in FORMATS ? (fmtParam as FormatId) : null;
   const w = WAYS[way];
+  useStudio(); // re-render when creators publish
+  const fresh = uploadedPieces().filter((p) => !format || p.format === format).map((p) => p.id);
 
   const go = (next: { way?: WayId; format?: FormatId | null }) => {
     const q = new URLSearchParams(params);
@@ -43,14 +47,21 @@ export function Explore() {
           </button>
         ))}
       </div>
+      {fresh.length > 0 && (
+        <section className="trad">
+          <div className="trad-head"><h3>New from creators</h3><span className="n">{fresh.length} pieces</span></div>
+          <PieceList ids={fresh} />
+        </section>
+      )}
       <div>
         {w.traditions.map((t) => {
-          const ids = t.pieceIds.filter((id) => !format || piece(id).format === format);
+          const all = traditionPieceIds(t);
+          const ids = all.filter((id) => !format || piece(id).format === format);
           return (
             <div key={t.id} className="trad">
               <div className="trad-head">
                 <h3>{t.name}{t.natureMeOriginal && <span className="badge">NatureMe original</span>}</h3>
-                <span className="n">{t.pieceIds.length} pieces</span>
+                <span className="n">{all.length} pieces</span>
               </div>
               <p className="line">{t.line}</p>
               {ids.length ? <PieceList ids={ids} /> : <p className="note">No {FORMATS[format!].plural.toLowerCase()} here yet.</p>}
@@ -59,6 +70,7 @@ export function Explore() {
         })}
       </div>
       <p className="note">WAS: made by NatureMe with Wilderness Awareness School.</p>
+      <Link href="/studio" className="creator-link"><span>Record nature audio? Publish it on NatureMe and earn per minute listened.</span><b>Studio</b></Link>
     </div>
   );
 }

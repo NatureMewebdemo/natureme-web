@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { ALL_PLACES, FORMATS, piece } from "@/lib/content";
-import { clock, lengthSeconds } from "@/lib/duration";
+import { ALL_PLACES, findPiece, FORMATS } from "@/lib/content";
+import { clock, pieceSeconds } from "@/lib/duration";
 import { Cover } from "./Cover";
 import { Calendar, Close, Compass, Home, MapPin, Pause, Play } from "./icons";
 import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
+import { isStudioPath } from "@/lib/views";
 
 const TABS = [
   { href: "/", label: "Home", Icon: Home },
@@ -20,13 +21,13 @@ const TABS = [
 export function Dock() {
   const path = usePathname();
   const { nowId, playing, position, toggle, openSheet } = usePlayer();
-  const p = nowId ? piece(nowId) : null;
-  if (path === WELCOME_PATH) return null;
+  const p = nowId ? findPiece(nowId) : null;
+  if (path === WELCOME_PATH || isStudioPath(path)) return null;
   return (
     <div className="dock">
       {p && (
         <div style={{ position: "relative" }}>
-          <span className="prog" style={{ width: `${Math.min(100, (position / lengthSeconds(p.length)) * 100)}%` }} />
+          <span className="prog" style={{ width: `${Math.min(100, (position / pieceSeconds(p)) * 100)}%` }} />
           <div className="mini">
             <button onClick={() => openSheet(true)} style={{ display: "flex", gap: 10, alignItems: "center", flex: 1, minWidth: 0 }}>
               <Cover piece={p} />
@@ -81,9 +82,9 @@ export function PlayerSheet() {
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
   }, [openSheet]);
-  if (!nowId || !sheetOpen) return null;
-  const p = piece(nowId);
-  const total = lengthSeconds(p.length);
+  const p = nowId ? findPiece(nowId) : undefined;
+  if (!p || !sheetOpen) return null;
+  const total = pieceSeconds(p);
   return (
     <div className="sheet" onClick={(e) => e.target === e.currentTarget && openSheet(false)}>
       <div className="sheet-in" role="dialog" aria-label="Now playing">
@@ -107,7 +108,7 @@ export function PlayerSheet() {
           <div><span>Pinned to</span><b>{ALL_PLACES.find((pl) => pl.id === p.placeId)?.name ?? "Anywhere"}</b></div>
           <div><span>You&apos;ve listened</span><b className="mono">{(listened / 60).toFixed(1)} min</b></div>
         </div>
-        <p className="demo-flag">No audio files yet. Time runs at {DEMO_SPEED}× speed so you can see minutes count toward the creator.</p>
+        {!p.audio && <p className="demo-flag">No audio files yet. Time runs at {DEMO_SPEED}× speed so you can see minutes count toward the creator.</p>}
       </div>
     </div>
   );
