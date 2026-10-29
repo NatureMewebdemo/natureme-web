@@ -4,7 +4,12 @@
   --ls-ground:#08130B; --ls-accent:#B5D98C; --ls-line:#1B3020; --ls-card:#0F2214;
   --ls-ink:#EAF2EC; --ls-muted:#A3B8A6; --ls-highlight:#B5D98C; --ls-tile:#1E3A21;
   --ls-deep:#1C3A22; --ls-deeper:#122A17; --ls-deep-line:#3D6342; --ls-on-deep:#E3EEE5;
-  background:var(--ls-ground);color:var(--ls-ink);font-size:17px;line-height:1.5;color-scheme:dark
+  /* Topographic contour lines, as on the pitch deck, run behind everything below the hero. */
+  background:
+    url(/landing/contours-a.svg) center top max(600px,100svh)/max(1600px,100%) auto no-repeat,
+    url(/landing/contours-b.svg) center bottom/max(1600px,100%) auto no-repeat,
+    var(--ls-ground);
+  color:var(--ls-ink);font-size:17px;line-height:1.5;color-scheme:dark
 }
 .app:has(> .landing){max-width:none;padding-bottom:0;border:0;background:#08130B}
 .ls-wrap{max-width:1240px;margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px)) max(24px,env(safe-area-inset-right,0px))}
