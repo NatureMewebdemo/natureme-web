@@ -15,12 +15,12 @@ const HELPS = [
   { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
-/** The public launching-soon page: a full-screen landscape, "Go Outside", then what NatureMe does and the creator waitlist. */
+/** The public launching-soon page: a full-screen forest video, "Go Outside", then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
     <div className="landing">
       <section className="ls-hero">
-        <Image src="/landing/go-outside.jpg" alt="Waves breaking on a sandy beach, seen from above" fill priority sizes="100vw" className="ls-hero-img" />
+        <video className="ls-hero-video" src="/landing/go-outside.mp4" poster="/landing/go-outside-poster.jpg" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
         <div className="ls-hero-shade" aria-hidden="true" />
         <header className="ls-top">
           <Image src="/logo-wordmark.png" alt="NatureMe" width={163} height={24} priority />
