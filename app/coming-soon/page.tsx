@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Calendar, Globe, MapPin, Walk } from "@/components/icons";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
 
@@ -7,7 +8,14 @@ export const metadata = {
   description: "Nature audio that only plays when you get there. Coming soon. Creators, join the waitlist.",
 };
 
-/** The public coming-soon page: a full-screen landscape, "Go Outside", then the creator waitlist. */
+const HELPS = [
+  { Icon: MapPin, title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
+  { Icon: Walk, title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
+  { Icon: Calendar, title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
+  { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
+];
+
+/** The public coming-soon page: a full-screen landscape, "Go Outside", then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
     <div className="landing">
@@ -28,18 +36,20 @@ export default function ComingSoonPage() {
         </a>
       </section>
 
-      <section id="about" className="ls-wrap ls-three">
-        <div>
-          <h2>Stories pinned to places</h2>
-          <p>Meditations, audiobooks, podcasts and local history, each tied to the beach, trail or valley it belongs to.</p>
-        </div>
-        <div>
-          <h2>Unlocked on arrival</h2>
-          <p>Press play at home and nothing happens. Walk there and it opens. Then it&apos;s yours to replay anywhere.</p>
-        </div>
-        <div>
-          <h2>17 minutes a day</h2>
-          <p>Two hours a week outside is linked to better health and wellbeing. We&apos;re here to get you those minutes.</p>
+      <section id="about" className="ls-wrap ls-statement">
+        <p>NatureMe pins stories, meditations and audiobooks to real places, so the only way to hear them is to go outside.</p>
+      </section>
+
+      <section className="ls-wrap ls-helps">
+        <h2>NatureMe helps you…</h2>
+        <div className="ls-cards">
+          {HELPS.map(({ Icon, title, body }) => (
+            <article key={title} className="ls-help">
+              <span className="ls-help-icon"><Icon size={26} /></span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -50,6 +60,10 @@ export default function ComingSoonPage() {
           <p>Publish any kind of audio, set your own price or make it free, and earn for every minute listened. Founding creators get early access before launch.</p>
         </div>
         <Waitlist />
+      </section>
+
+      <section className="ls-wrap ls-statement ls-closing">
+        <p>Go outside and hear where you are.</p>
       </section>
 
       <footer className="ls-foot">
