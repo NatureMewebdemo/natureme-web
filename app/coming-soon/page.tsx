@@ -55,7 +55,6 @@ export default function ComingSoonPage() {
 
       <section id="waitlist" className="ls-wrap ls-join">
         <div className="ls-join-copy">
-          <p className="ls-eyebrow">For creators</p>
           <h2>Give people a reason to go outside.</h2>
           <p>Publish any kind of audio, set your own price or make it free, and earn for every minute listened. Founding creators get early access before launch.</p>
         </div>
