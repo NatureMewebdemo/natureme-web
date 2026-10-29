@@ -5,7 +5,7 @@ import "./landing.css";
 
 export const metadata = {
   title: "Go Outside · NatureMe",
-  description: "Nature audio that only plays when you get there. Coming soon. Creators, join the waitlist.",
+  description: "Nature audio that only plays when you get there. Launching soon. Creators, join the waitlist.",
 };
 
 const HELPS = [
@@ -15,7 +15,7 @@ const HELPS = [
   { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
-/** The public coming-soon page: a full-screen landscape, "Go Outside", then what NatureMe does and the creator waitlist. */
+/** The public launching-soon page: a full-screen landscape, "Go Outside", then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
     <div className="landing">
@@ -31,7 +31,7 @@ export default function ComingSoonPage() {
           <p>Nature audio that only plays when you get there.</p>
         </div>
         <a href="#about" className="ls-soon">
-          Coming soon
+          Launching soon
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
         </a>
       </section>
