@@ -7,3 +7,8 @@ export function isStudioPath(path: string | null): boolean {
 
 /** The public coming-soon page lives outside both views: no onboarding, no dock. */
 export const LANDING_PATH = "/coming-soon";
+
+/** On the public domain the landing page is served at "/", so the browser path alone can't tell it apart from the Listener home. */
+export function isLandingHost(host: string): boolean {
+  return /^(www\.)?natureme\.ai$/.test(host);
+}

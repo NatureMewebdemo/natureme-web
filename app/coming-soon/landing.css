@@ -11,6 +11,8 @@
     var(--ls-ground);
   color:var(--ls-ink);font-size:17px;line-height:1.5;color-scheme:dark
 }
+/* on natureme.ai the landing is served at "/", where the Dock would otherwise render */
+body:has(.landing) .dock{display:none}
 .app:has(> .landing){max-width:none;padding-bottom:0;border:0;background:#08130B}
 .ls-wrap{max-width:1240px;margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px)) max(24px,env(safe-area-inset-right,0px))}
 
