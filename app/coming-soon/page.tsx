@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Calendar, Globe, MapPin, Walk } from "@/components/icons";
+import { Calendar, Globe, Lock, MapPin, Walk } from "@/components/icons";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
 
@@ -38,6 +38,33 @@ export default function ComingSoonPage() {
 
       <section id="about" className="ls-wrap ls-statement">
         <p>NatureMe pins stories, meditations and audiobooks to real places, so the only way to hear them is to go outside.</p>
+      </section>
+
+      <section className="ls-wrap ls-arrive">
+        <div className="ls-arrive-copy">
+          <p className="ls-kicker">The home of nature audio</p>
+          <h2>Some stories only play where they happened.</h2>
+          <p>Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
+          <div className="ls-arrive-ctas">
+            <a href="#waitlist" className="ls-submit">Join the creator waitlist</a>
+            <a href="#waitlist" className="ls-ghost">I just want to listen</a>
+          </div>
+        </div>
+        <div className="ls-story" aria-label="Example of a locked story">
+          <div className="ls-story-map">
+            <span className="ls-story-lock"><Lock size={14} />Locked</span>
+          </div>
+          <div className="ls-story-meta">
+            <p className="ls-kicker">Audio story · 9 min</p>
+            <p className="ls-story-title">Why the oaks here lean the way they do</p>
+            <p className="ls-story-by">By a local naturalist</p>
+          </div>
+          <div className="ls-story-place">
+            <div><span>Only playable at Lindenwood Park</span><span className="ls-story-dist">0.4 mi</span></div>
+            <div className="ls-story-bar"><div /></div>
+            <p>5 minute walk. Hear it once there and it&apos;s yours to replay anywhere.</p>
+          </div>
+        </div>
       </section>
 
       <section className="ls-wrap ls-helps">

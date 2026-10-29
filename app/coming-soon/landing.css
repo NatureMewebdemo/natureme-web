@@ -45,6 +45,30 @@
 .ls-help h3{font-family:var(--body);font-weight:600;font-size:24px;letter-spacing:-.01em}
 .ls-help p{color:var(--ls-muted);font-size:18px;max-width:34em}
 
+/* "Some stories only play where they happened", carried over from concept A: copy beside a locked story card */
+.ls-arrive{padding-block:40px 40px;display:flex;flex-wrap:wrap;gap:64px;align-items:center}
+.ls-arrive-copy{flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px}
+.ls-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ls-accent)}
+.ls-arrive-copy h2{font-size:clamp(40px,5.2vw,76px);line-height:1.04;text-wrap:balance}
+.ls-arrive-copy>p:not(.ls-kicker){max-width:34em;font-size:20px;color:var(--ls-muted)}
+.ls-arrive-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.ls-arrive-ctas .ls-submit{display:inline-flex;align-items:center}
+.ls-ghost{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;border:1px solid var(--ls-deep-line);font-weight:600}
+.ls-ghost:hover{background:var(--ls-card)}
+.ls-story{flex:0 1 400px;max-width:100%;margin-inline:auto;background:var(--ls-card);border:1px solid var(--ls-line);border-radius:28px;padding:22px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.ls-story-map{position:relative;aspect-ratio:16/11;border-radius:18px;background:radial-gradient(ellipse at 40% 55%,#8FB896 0 8%,#7CA684 8% 16%,#6E9878 16% 24%,#648E6E 24% 33%,#5A8364 33% 43%,#507A5B 43% 55%,#476F51 55% 70%,#3E6448 70%)}
+.ls-story-lock{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(8,19,11,.78);border-radius:999px;padding:6px 12px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.ls-story-meta{display:flex;flex-direction:column;gap:6px}
+.ls-story-meta .ls-kicker{font-size:11px;color:var(--ls-muted)}
+.ls-story-title{font-family:var(--display);font-size:26px;line-height:1.15}
+.ls-story-by{color:var(--ls-muted);font-size:15px}
+.ls-story-place{border:1px dashed var(--ls-deep-line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.ls-story-place>div:first-child{display:flex;justify-content:space-between;gap:12px;font-weight:600}
+.ls-story-dist{font-family:var(--mono);white-space:nowrap;font-weight:400;color:var(--ls-accent)}
+.ls-story-bar{height:6px;border-radius:3px;background:var(--ls-tile);overflow:hidden}
+.ls-story-bar div{width:62%;height:100%;background:var(--ls-accent)}
+.ls-story-place p{font-size:14px;color:var(--ls-muted)}
+
 /* waitlist */
 .ls-join{padding-block:120px;display:flex;flex-wrap:wrap;gap:56px}
 .ls-join-copy{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px}
