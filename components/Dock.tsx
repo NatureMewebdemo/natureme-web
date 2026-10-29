@@ -10,7 +10,7 @@ import { Calendar, Close, Compass, Home, MapPin, Pause, Play } from "./icons";
 import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
 import { priceLabel } from "@/lib/studio";
-import { isStudioPath } from "@/lib/views";
+import { isStudioPath, LANDING_PATH } from "@/lib/views";
 
 const TABS = [
   { href: "/", label: "Home", Icon: Home },
@@ -23,7 +23,7 @@ export function Dock() {
   const path = usePathname();
   const { nowId, playing, position, toggle, openSheet } = usePlayer();
   const p = nowId ? findPiece(nowId) : null;
-  if (path === WELCOME_PATH || isStudioPath(path)) return null;
+  if (path === WELCOME_PATH || path === LANDING_PATH || isStudioPath(path)) return null;
   return (
     <div className="dock">
       {p && (
