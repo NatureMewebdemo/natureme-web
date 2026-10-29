@@ -61,16 +61,18 @@ export default function ComingSoonPage() {
         <Waitlist />
       </section>
 
-      <section className="ls-wrap ls-statement ls-closing">
-        <p>Go outside and hear where you are.</p>
-      </section>
+      <div className="ls-horizon">
+        <section className="ls-wrap ls-statement ls-closing">
+          <p>Go outside and hear where you are.</p>
+        </section>
 
-      <footer className="ls-foot">
-        <div className="ls-wrap">
-          <span>© 2026 NatureMe</span>
-          <span>The home of nature audio</span>
-        </div>
-      </footer>
+        <footer className="ls-foot">
+          <div className="ls-wrap">
+            <span>© 2026 NatureMe</span>
+            <span>The home of nature audio</span>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }
