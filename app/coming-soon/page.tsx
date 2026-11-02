@@ -19,6 +19,19 @@ const SHAPES = {
   circle: "M50 0A50 50 0 1 1 49.99 0Z",
 };
 
+/** Small shapes scattered beside the closing line: [shape, color, left %, top %, size px, rotation deg]. */
+const SCATTER: [string, string, number, number, number, number][] = [
+  [SHAPES.leaf, "var(--ls-violet)", 6, 18, 34, -12],
+  [SHAPES.star, "var(--ls-violet-soft)", 30, 2, 22, 8],
+  [SHAPES.circle, "var(--ls-forest)", 52, 30, 16, 0],
+  [SHAPES.diamond, "var(--ls-forest)", 78, 8, 28, 0],
+  [SHAPES.circle, "var(--ls-violet)", 18, 62, 22, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 40, 78, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 66, 58, 30, -6],
+  [SHAPES.leaf, "var(--ls-forest)", 90, 50, 20, 24],
+  [SHAPES.star, "var(--ls-forest)", 4, 88, 16, 14],
+];
+
 const HELPS = [
   { shape: SHAPES.leaf, color: "var(--ls-lime)", title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
   { shape: SHAPES.diamond, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
@@ -107,6 +120,13 @@ export default function ComingSoonPage() {
 
       <section className="ls-wrap ls-closing">
         <p>Go outside and hear where you are.</p>
+        <div className="ls-scatter" aria-hidden="true">
+          {SCATTER.map(([shape, color, left, top, size, turn], i) => (
+            <svg key={i} viewBox="0 0 100 100" style={{ left: `${left}%`, top: `${top}%`, width: size, height: size, rotate: `${turn}deg`, animationDelay: `${-i * 0.7}s` }}>
+              <path d={shape} fill={color} />
+            </svg>
+          ))}
+        </div>
       </section>
 
       <footer className="ls-foot">
