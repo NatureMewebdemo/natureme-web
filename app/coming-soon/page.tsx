@@ -18,7 +18,7 @@ const HELPS = [
   { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
-/** The public launching-soon page: lime ground, a woodland trail photo with a story waiting on it, then what NatureMe does and the creator waitlist. */
+/** The public launching-soon page: lime ground, a forest river photo with a story waiting on it, then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
     <div className={`landing ${grotesk.variable}`}>
@@ -37,9 +37,9 @@ export default function ComingSoonPage() {
           </div>
         </div>
         <figure className="ls-photo">
-          <Image src="/landing/woodland-trail.jpg" alt="A grassy trail through a sunlit oak wood" fill sizes="(max-width: 860px) 100vw, 45vw" priority />
+          <Image src="/landing/forest-river.jpg" alt="A river winding through pine forest and bright green meadows" fill sizes="(max-width: 860px) 100vw, 45vw" priority />
           <figcaption className="ls-waiting">
-            <p className="ls-kicker">Waiting at the woodland trail</p>
+            <p className="ls-kicker">Waiting at the river bend</p>
             <p className="ls-waiting-title">A slower kind of morning</p>
             <p className="ls-waiting-meta">Meditation · 12 min · Unlocks on arrival</p>
           </figcaption>

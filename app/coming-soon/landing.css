@@ -12,7 +12,7 @@ body:has(.landing) .dock{display:none}
 .ls-wrap{max-width:1240px;margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px)) max(24px,env(safe-area-inset-right,0px))}
 .ls-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 
-/* hero: copy on the left, an arched trail photo flush to the right edge with a story waiting on it */
+/* hero: copy on the left, an arched forest photo flush to the right edge with a story waiting on it */
 .ls-hero{min-height:max(680px,100svh);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:auto 1fr auto;column-gap:48px}
 .ls-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:max(32px,env(safe-area-inset-top,0px)) clamp(24px,4vw,56px) 24px}
 .ls-top img{height:63px;width:auto}
@@ -27,7 +27,7 @@ body:has(.landing) .dock{display:none}
 .ls-btn-ghost:hover{background:rgba(32,60,48,.08)}
 .ls-btn:focus-visible,.ls-card :focus-visible{outline:2px solid var(--ls-violet);outline-offset:2px}
 .ls-photo{grid-column:2;grid-row:2/4;position:relative;margin:0;min-height:520px;border-top-left-radius:34% 24%;overflow:hidden;background:#6E8F4E}
-.ls-photo img{object-fit:cover;object-position:62% 30%}
+.ls-photo img{object-fit:cover;object-position:50% 40%}
 .ls-waiting{position:absolute;left:28%;right:12%;bottom:0;background:var(--ls-cream);border-radius:8px 8px 0 0;padding:20px 20px 22px;display:flex;flex-direction:column;gap:6px}
 .ls-waiting .ls-kicker{font-size:10px}
 .ls-waiting-title{font-family:var(--font-grotesk),var(--body);font-weight:700;font-size:clamp(19px,1.7vw,24px);line-height:1.15;letter-spacing:-.01em}
