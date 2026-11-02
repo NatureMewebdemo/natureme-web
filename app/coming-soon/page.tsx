@@ -32,6 +32,31 @@ const SCATTER: [string, string, number, number, number, number][] = [
   [SHAPES.star, "var(--ls-forest)", 4, 88, 16, 14],
 ];
 
+/** A second, wider arrangement for under the creator copy. */
+const SCATTER_WIDE: [string, string, number, number, number, number][] = [
+  [SHAPES.diamond, "var(--ls-violet)", 2, 30, 24, 0],
+  [SHAPES.circle, "var(--ls-forest)", 14, 70, 14, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 24, 12, 26, -8],
+  [SHAPES.leaf, "var(--ls-forest)", 38, 52, 22, 18],
+  [SHAPES.circle, "var(--ls-violet)", 52, 16, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 63, 60, 20, 10],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 76, 22, 16, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 88, 54, 30, -14],
+];
+
+/** Small shapes placed by percentage inside a positioned box, each bobbing gently. */
+function Scatter({ items, className }: { items: typeof SCATTER; className: string }) {
+  return (
+    <div className={`ls-scatter ${className}`} aria-hidden="true">
+      {items.map(([shape, color, left, top, size, turn], i) => (
+        <svg key={i} viewBox="0 0 100 100" style={{ left: `${left}%`, top: `${top}%`, width: size, height: size, rotate: `${turn}deg`, animationDelay: `${-i * 0.7}s` }}>
+          <path d={shape} fill={color} />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 const HELPS = [
   { shape: SHAPES.leaf, color: "var(--ls-lime)", title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
   { shape: SHAPES.diamond, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
@@ -114,19 +139,14 @@ export default function ComingSoonPage() {
         <div className="ls-join-copy">
           <h2>Give people a reason to go outside.</h2>
           <p>Publish any kind of audio, set your own price or make it free, and earn for every minute listened. Founding creators get early access before launch.</p>
+          <Scatter items={SCATTER_WIDE} className="ls-scatter-under" />
         </div>
         <Waitlist />
       </section>
 
       <section className="ls-wrap ls-closing">
         <p>Go outside and hear where you are.</p>
-        <div className="ls-scatter" aria-hidden="true">
-          {SCATTER.map(([shape, color, left, top, size, turn], i) => (
-            <svg key={i} viewBox="0 0 100 100" style={{ left: `${left}%`, top: `${top}%`, width: size, height: size, rotate: `${turn}deg`, animationDelay: `${-i * 0.7}s` }}>
-              <path d={shape} fill={color} />
-            </svg>
-          ))}
-        </div>
+        <Scatter items={SCATTER} className="ls-scatter-side" />
       </section>
 
       <footer className="ls-foot">

@@ -104,7 +104,7 @@ body:has(.landing) .dock{display:none}
 .ls-join{padding-block:120px;display:flex;flex-wrap:wrap;gap:56px}
 .ls-join-copy{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px}
 .ls-join-copy h2{font-size:clamp(38px,4.4vw,58px);font-weight:800;line-height:1;letter-spacing:-.03em}
-.ls-join-copy p:last-child{color:var(--ls-muted);max-width:30em}
+.ls-join-copy>p{color:var(--ls-muted);max-width:30em}
 .ls-card{flex:999 1 520px;min-width:0;background:var(--ls-violet);box-shadow:0 40px 80px -40px rgba(54,35,126,.7);color:var(--ls-cream);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px}
 @media (max-width:520px){.ls-card{padding:22px}}
 .ls-switch{display:inline-flex;align-self:flex-start;background:rgba(245,243,233,.08);border:1px solid rgba(245,243,233,.22);border-radius:999px;padding:4px;gap:4px}
@@ -129,11 +129,13 @@ body:has(.landing) .dock{display:none}
 
 .ls-closing{padding-block:40px 120px;display:flex;align-items:center;gap:clamp(24px,4vw,64px)}
 /* small palette shapes scattered to the right of the closing line */
-.ls-scatter{position:relative;flex:1 1 360px;align-self:stretch;min-height:200px;max-width:520px}
+.ls-scatter{position:relative}
+.ls-scatter-side{flex:1 1 360px;align-self:stretch;min-height:200px;max-width:520px}
+.ls-scatter-under{height:90px;max-width:30em;margin-top:14px}
 .ls-scatter svg{position:absolute;overflow:visible}
 @media (prefers-reduced-motion:no-preference){.ls-scatter svg{animation:ls-bob 6s ease-in-out infinite alternate}}
 @keyframes ls-bob{to{translate:0 -10px}}
-@media (max-width:760px){.ls-closing{flex-direction:column;align-items:stretch}.ls-scatter{flex:none;min-height:130px;max-width:none}}
+@media (max-width:760px){.ls-closing{flex-direction:column;align-items:stretch}.ls-scatter-side{flex:none;min-height:130px;max-width:none}}
 .ls-closing p{color:var(--ls-violet);max-width:16em;font-family:var(--font-grotesk),var(--body);font-weight:800;font-size:clamp(40px,6vw,88px);line-height:1;letter-spacing:-.035em;text-wrap:balance}
 .ls-foot{background:var(--ls-violet);color:var(--ls-on-violet);border-radius:clamp(28px,3vw,48px) clamp(28px,3vw,48px) 0 0;margin-inline:clamp(8px,1.4vw,20px)}
 .ls-foot .ls-wrap{padding-block:28px max(28px,env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
