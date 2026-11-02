@@ -39,7 +39,7 @@ export default function ComingSoonPage() {
         </header>
         <div className="ls-hero-copy">
           <p className="ls-kicker">Good things are waiting outside</p>
-          <h1>Some stories only play where they happened.</h1>
+          <h1>Some stories only play <span className="ls-accent">where they happened.</span></h1>
           <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
           <div className="ls-ctas">
             <a href="#waitlist" className="ls-btn">Join the creator waitlist</a>
@@ -57,16 +57,18 @@ export default function ComingSoonPage() {
         <p className="ls-fresh">Made for fresh air, not your feed.</p>
       </section>
 
-      <section className="ls-wrap ls-helps">
-        <h2>NatureMe helps you…</h2>
-        <div className="ls-cards">
-          {HELPS.map(({ Icon, title, body }) => (
-            <article key={title} className="ls-help">
-              <span className="ls-help-icon"><Icon size={26} /></span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
+      <section className="ls-band">
+        <div className="ls-wrap ls-helps">
+          <h2>NatureMe helps you…</h2>
+          <div className="ls-cards">
+            {HELPS.map(({ Icon, title, body }) => (
+              <article key={title} className="ls-help">
+                <span className="ls-help-icon"><Icon size={26} /></span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
