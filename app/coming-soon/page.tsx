@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Bricolage_Grotesque } from "next/font/google";
-import { Calendar, Globe, MapPin, Walk } from "@/components/icons";
 import { Globe as GlobeMap } from "@/components/landing/Globe";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
@@ -12,11 +11,19 @@ export const metadata = {
   description: "Stories, meditations and audiobooks pinned to real places. Launching soon. Creators, join the waitlist.",
 };
 
+/** Bold flat shapes, one per card, in the brand palette. */
+const SHAPES = {
+  leaf: "M40 0H100V60A40 40 0 0 1 60 100H0V40A40 40 0 0 1 40 0Z",
+  diamond: "M50 0L100 50L50 100L0 50Z",
+  star: "M0 0Q50 34 100 0Q66 50 100 100Q50 66 0 100Q34 50 0 0Z",
+  circle: "M50 0A50 50 0 1 1 49.99 0Z",
+};
+
 const HELPS = [
-  { Icon: MapPin, title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
-  { Icon: Walk, title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
-  { Icon: Calendar, title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
-  { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
+  { shape: SHAPES.leaf, color: "var(--ls-lime)", title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
+  { shape: SHAPES.diamond, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
+  { shape: SHAPES.star, color: "var(--ls-violet-soft)", title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
+  { shape: SHAPES.circle, color: "var(--ls-forest)", title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
 /** Screens from the live NatureMe meditation app, shown in phone frames. */
@@ -60,9 +67,9 @@ export default function ComingSoonPage() {
         <div className="ls-wrap ls-helps">
           <h2>NatureMe helps you…</h2>
           <div className="ls-cards">
-            {HELPS.map(({ Icon, title, body }) => (
+            {HELPS.map(({ shape, color, title, body }) => (
               <article key={title} className="ls-help">
-                <span className="ls-help-icon"><Icon size={26} /></span>
+                <svg className="ls-help-shape" viewBox="0 0 100 100" aria-hidden="true"><path d={shape} fill={color} /></svg>
                 <h3>{title}</h3>
                 <p>{body}</p>
               </article>
