@@ -34,8 +34,8 @@ export default function ComingSoonPage() {
     <div className={`landing ${grotesk.variable}`}>
       <header className="ls-top">
         <a href="#top" className="ls-brand" aria-label="NatureMe">
-          <Image src="/logo-mark.png" alt="" width={154} height={192} priority />
-          <Image src="/logo-wordmark.png" alt="NatureMe" width={489} height={72} priority />
+          <Image src="/logo-mark-on-violet.png" alt="" width={386} height={480} priority />
+          <Image src="/logo-wordmark-on-violet.png" alt="NatureMe" width={815} height={120} priority />
         </a>
         <a href="#waitlist" className="ls-top-cta">Join the waitlist</a>
       </header>
