@@ -14,10 +14,16 @@ body:has(.landing) .dock{display:none}
 .ls-kicker{color:var(--ls-violet);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 
 /* hero: copy on the left, an arched forest photo flush to the right edge with a story waiting on it */
-.ls-hero{min-height:max(680px,100svh);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:auto 1fr auto;column-gap:48px}
-.ls-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:max(32px,env(safe-area-inset-top,0px)) clamp(24px,4vw,56px) 24px}
-.ls-top img{height:63px;width:auto}
-.ls-hero-copy{grid-column:1;grid-row:2;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
+.ls-hero{min-height:max(620px,calc(100svh - 72px));padding-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:1fr auto;column-gap:48px;scroll-margin-top:72px}
+/* the header stays on screen as the page scrolls */
+.ls-top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:72px;padding:max(12px,env(safe-area-inset-top,0px)) clamp(24px,4vw,56px) 12px;background:var(--ls-violet);color:var(--ls-cream);box-shadow:0 10px 30px -18px rgba(54,35,126,.8)}
+.ls-brand{display:flex;align-items:center;gap:10px}
+.ls-brand img:first-child{height:36px;width:auto}
+.ls-brand img:last-child{height:20px;width:auto}
+.ls-top-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ls-lime);color:var(--ls-violet);font-weight:700;font-size:15px;transition:transform .2s}
+.ls-top-cta:hover{transform:translateY(-1px)}
+#waitlist,#app{scroll-margin-top:88px}
+.ls-hero-copy{grid-column:1;grid-row:1;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
 .ls-accent{color:var(--ls-violet)}
 .ls-hero-copy h1{font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
 .ls-lede{max-width:27em;font-size:clamp(16px,1.35vw,19px)}
@@ -28,13 +34,13 @@ body:has(.landing) .dock{display:none}
 .ls-btn-ghost:hover{background:rgba(71,49,152,.08)}
 .ls-btn:focus-visible{outline:2px solid var(--ls-violet);outline-offset:2px}
 .ls-card :focus-visible{outline:2px solid var(--ls-lime);outline-offset:2px}
-.ls-photo{grid-column:2;grid-row:2/4;position:relative;margin:0;min-height:520px;border-top-left-radius:34% 24%;overflow:hidden;background:#6E8F4E}
+.ls-photo{grid-column:2;grid-row:1/3;position:relative;margin:0;min-height:520px;border-top-left-radius:34% 24%;overflow:hidden;background:#6E8F4E}
 .ls-photo img{object-fit:cover;object-position:50% 40%}
 .ls-waiting{position:absolute;left:28%;right:12%;bottom:0;background:var(--ls-cream);box-shadow:0 -12px 40px -16px rgba(54,35,126,.45);border-radius:8px 8px 0 0;padding:20px 20px 22px;display:flex;flex-direction:column;gap:6px}
 .ls-waiting .ls-kicker{font-size:10px}
 .ls-waiting-title{font-family:var(--font-grotesk),var(--body);font-weight:700;font-size:clamp(19px,1.7vw,24px);line-height:1.15;letter-spacing:-.01em}
 .ls-waiting-meta{font-size:12px;color:var(--ls-muted)}
-.ls-fresh{grid-column:1;grid-row:3;align-self:end;padding:0 0 28px clamp(24px,4vw,56px);font-size:13px}
+.ls-fresh{grid-column:1;grid-row:2;align-self:end;padding:0 0 28px clamp(24px,4vw,56px);font-size:13px}
 @media (max-width:860px){
   .ls-hero{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;min-height:0}
   .ls-hero-copy,.ls-photo,.ls-fresh{grid-column:1;grid-row:auto}

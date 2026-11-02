@@ -32,10 +32,15 @@ const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=eco.amphi
 export default function ComingSoonPage() {
   return (
     <div className={`landing ${grotesk.variable}`}>
-      <section className="ls-hero">
-        <header className="ls-top">
-          <Image src="/logo-vertical-light.png" alt="NatureMe" width={78} height={63} priority />
-        </header>
+      <header className="ls-top">
+        <a href="#top" className="ls-brand" aria-label="NatureMe">
+          <Image src="/logo-mark.png" alt="" width={154} height={192} priority />
+          <Image src="/logo-wordmark.png" alt="NatureMe" width={489} height={72} priority />
+        </a>
+        <a href="#waitlist" className="ls-top-cta">Join the waitlist</a>
+      </header>
+
+      <section id="top" className="ls-hero">
         <div className="ls-hero-copy">
           <h1>Some stories only play <span className="ls-accent">where they happened.</span></h1>
           <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
