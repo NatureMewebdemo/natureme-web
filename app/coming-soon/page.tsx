@@ -58,6 +58,16 @@ const SCATTER_RING: [string, string, number, number, number, number][] = [
   [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
 ];
 
+/** A light sprinkle for the hero: three to the right of the headline, three under the buttons. */
+const SCATTER_HERO: [string, string, number, number, number, number][] = [
+  [SHAPES.star, "var(--ls-violet)", 93, 6, 26, -8],
+  [SHAPES.circle, "var(--ls-forest)", 97, 30, 12, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 90, 48, 16, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 8, 88, 22, 16],
+  [SHAPES.star, "var(--ls-violet-soft)", 30, 96, 16, 10],
+  [SHAPES.circle, "var(--ls-violet)", 52, 86, 12, 0],
+];
+
 /** Small shapes placed by percentage inside a positioned box, each bobbing gently. */
 function Scatter({ items, className }: { items: typeof SCATTER; className: string }) {
   return (
@@ -102,6 +112,7 @@ export default function ComingSoonPage() {
 
       <section id="top" className="ls-hero">
         <div className="ls-hero-copy">
+          <Scatter items={SCATTER_HERO} className="ls-scatter-hero" />
           <h1>Some stories only play <span className="ls-accent">where they happened.</span></h1>
           <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
           <div className="ls-ctas">
