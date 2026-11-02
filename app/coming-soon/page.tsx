@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Bricolage_Grotesque } from "next/font/google";
 import { Calendar, Globe, MapPin, Walk } from "@/components/icons";
+import { Globe as GlobeMap } from "@/components/landing/Globe";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
 
@@ -28,7 +29,7 @@ const APP_SCREENS = [
 const APP_STORE_URL = "https://apps.apple.com/us/app/natureme-nature-meditation/id6746290732";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=eco.amphibian.natureme";
 
-/** The public launching-soon page: lime ground, a forest river photo with a story waiting on it, then what NatureMe does and the creator waitlist. */
+/** The public launching-soon page: lime ground, a spinning globe of locked stories, then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
     <div className={`landing ${grotesk.variable}`}>
@@ -50,12 +51,7 @@ export default function ComingSoonPage() {
           </div>
         </div>
         <figure className="ls-photo">
-          <Image src="/landing/forest-river.jpg" alt="A river winding through pine forest and bright green meadows" fill sizes="(max-width: 860px) 100vw, 45vw" priority />
-          <figcaption className="ls-waiting">
-            <p className="ls-kicker">Waiting at the river bend</p>
-            <p className="ls-waiting-title">A slower kind of morning</p>
-            <p className="ls-waiting-meta">Meditation · 12 min · Unlocks on arrival</p>
-          </figcaption>
+          <GlobeMap />
         </figure>
         <p className="ls-fresh">Made for fresh air, not your feed.</p>
       </section>
