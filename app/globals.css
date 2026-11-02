@@ -263,3 +263,32 @@ p{margin:0}
 .onb-gap span{background:var(--raised);border-radius:8px;padding:10px 6px;text-align:center;color:var(--muted)}
 .onb-gap .free{background:var(--moss-soft);color:var(--sage);border:1px dashed var(--sage)}
 .for-you-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+/* home hero: beach photo with the logo on the sand, greeting over the sea */
+.hero{position:relative;margin-inline:-16px;margin-top:-20px;height:360px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;color:var(--paper)}
+.hero-img{object-fit:cover;object-position:50% 12%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(23,40,31,.35) 70%,var(--forest) 100%);pointer-events:none}
+.hero-logo{position:relative;z-index:1;display:flex;justify-content:center;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+.hero-logo img{display:block;filter:drop-shadow(0 1px 6px rgba(255,255,255,.35))}
+.hero-text{position:relative;z-index:1;padding-inline:16px;padding-block:0 8px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.hero-text h1{font-size:30px;line-height:1.1;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+/* profile */
+.profile-head{display:flex;align-items:center;gap:14px}
+.profile-head h1{font-size:28px}
+.avatar{flex:none;width:60px;height:60px;border-radius:50%;background:var(--moss-soft);color:var(--sage);display:grid;place-items:center;border:1px solid var(--line)}
+.profile-card{background:var(--raised);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.profile-card h2{font-size:19px}
+.profile-card-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+.profile-ic{width:40px;height:40px;border-radius:12px;background:var(--moss-soft);color:var(--sage);display:grid;place-items:center}
+.profile-row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--surface);border-radius:12px;padding:12px}
+.profile-row b{display:block;font-size:14px}
+.profile-row svg{color:var(--muted);flex:none}
+.switch:disabled{opacity:.5}
+.back-link{font-size:14px;font-weight:600;color:var(--muted)}
+
+/* text field, used for the listener's name in onboarding and Profile */
+.field{width:100%;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit;font-size:15px}
+.field::placeholder{color:var(--muted)}
+.field:focus{outline:none;border-color:var(--sage)}
+.onb-hero .field{margin-top:8px;text-align:center}
+.profile-name{display:flex;flex-direction:column;gap:6px}
+.profile-name span{font-size:13px;font-weight:700;color:var(--muted)}

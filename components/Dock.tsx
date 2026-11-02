@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { ALL_PLACES, findPiece, FORMATS } from "@/lib/content";
 import { clock, pieceSeconds } from "@/lib/duration";
 import { Cover } from "./Cover";
-import { Calendar, Close, Compass, Home, MapPin, Pause, Play } from "./icons";
+import { Close, Compass, Home, MapPin, Pause, Play, User } from "./icons";
 import { WELCOME_PATH } from "./OnboardingGate";
 import { DEMO_SPEED, usePlayer } from "./Player";
 import { priceLabel } from "@/lib/studio";
@@ -16,7 +16,7 @@ const TABS = [
   { href: "/", label: "Home", Icon: Home },
   { href: "/explore", label: "Explore", Icon: Compass },
   { href: "/map", label: "Map", Icon: MapPin },
-  { href: "/companion", label: "Companion", Icon: Calendar },
+  { href: "/profile", label: "Profile", Icon: User },
 ] as const;
 
 export function Dock() {
@@ -45,7 +45,7 @@ export function Dock() {
       )}
       <nav className="tabs">
         {TABS.map(({ href, label, Icon }) => (
-          <Link key={href} href={href} aria-current={path === href ? "page" : undefined} className="tab">
+          <Link key={href} href={href} aria-current={path === href || (href === "/profile" && path === "/companion") ? "page" : undefined} className="tab">
             <Icon />
             {label}
           </Link>
