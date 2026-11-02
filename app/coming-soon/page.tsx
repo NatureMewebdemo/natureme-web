@@ -58,13 +58,12 @@ const SCATTER_RING: [string, string, number, number, number, number][] = [
   [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
 ];
 
-/** A light sprinkle for the hero: three to the right of the headline, three under the buttons. */
+/** A light sprinkle for the hero: three to the right of the headline, two under the buttons. */
 const SCATTER_HERO: [string, string, number, number, number, number][] = [
   [SHAPES.star, "var(--ls-violet)", 93, 6, 26, -8],
   [SHAPES.circle, "var(--ls-forest)", 97, 30, 12, 0],
   [SHAPES.diamond, "var(--ls-violet-soft)", 90, 48, 16, 0],
   [SHAPES.leaf, "var(--ls-violet)", 8, 88, 22, 16],
-  [SHAPES.star, "var(--ls-violet-soft)", 30, 96, 16, 10],
   [SHAPES.circle, "var(--ls-violet)", 52, 86, 12, 0],
 ];
 
@@ -123,7 +122,6 @@ export default function ComingSoonPage() {
         <figure className="ls-photo">
           <GlobeMap />
         </figure>
-        <p className="ls-fresh">Made for fresh air, not your feed.</p>
       </section>
 
       <section className="ls-band">
