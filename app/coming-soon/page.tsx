@@ -35,10 +35,8 @@ export default function ComingSoonPage() {
       <section className="ls-hero">
         <header className="ls-top">
           <Image src="/logo-vertical-light.png" alt="NatureMe" width={78} height={63} priority />
-          <p className="ls-tagline">Less scrolling. More wandering.</p>
         </header>
         <div className="ls-hero-copy">
-          <p className="ls-kicker">Good things are waiting outside</p>
           <h1>Some stories only play <span className="ls-accent">where they happened.</span></h1>
           <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
           <div className="ls-ctas">

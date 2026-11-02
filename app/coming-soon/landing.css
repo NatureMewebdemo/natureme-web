@@ -17,7 +17,6 @@ body:has(.landing) .dock{display:none}
 .ls-hero{min-height:max(680px,100svh);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:auto 1fr auto;column-gap:48px}
 .ls-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:max(32px,env(safe-area-inset-top,0px)) clamp(24px,4vw,56px) 24px}
 .ls-top img{height:63px;width:auto}
-.ls-tagline{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-align:right}
 .ls-hero-copy{grid-column:1;grid-row:2;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
 .ls-accent{color:var(--ls-violet)}
 .ls-hero-copy h1{font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
