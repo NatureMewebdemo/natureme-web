@@ -1,11 +1,14 @@
 import Image from "next/image";
-import { Calendar, Globe, Lock, MapPin, Walk } from "@/components/icons";
+import { Bricolage_Grotesque } from "next/font/google";
+import { Calendar, Globe, MapPin, Walk } from "@/components/icons";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
 
+const grotesk = Bricolage_Grotesque({ variable: "--font-grotesk", weight: ["600", "700", "800"], subsets: ["latin"] });
+
 export const metadata = {
-  title: "Go Outside · NatureMe",
-  description: "Nature audio that only plays when you get there. Launching soon. Creators, join the waitlist.",
+  title: "Some stories only play where they happened · NatureMe",
+  description: "Stories, meditations and audiobooks pinned to real places. Launching soon. Creators, join the waitlist.",
 };
 
 const HELPS = [
@@ -15,56 +18,33 @@ const HELPS = [
   { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
-/** The public launching-soon page: a full-screen forest video, "Go Outside", then what NatureMe does and the creator waitlist. */
+/** The public launching-soon page: lime ground, a woodland trail photo with a story waiting on it, then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
-    <div className="landing">
+    <div className={`landing ${grotesk.variable}`}>
       <section className="ls-hero">
-        <video className="ls-hero-video" src="/landing/go-outside.mp4" poster="/landing/go-outside-poster.jpg" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
-        <div className="ls-hero-shade" aria-hidden="true" />
         <header className="ls-top">
-          <Image src="/logo-wordmark.png" alt="NatureMe" width={163} height={24} priority />
-          <a href="#waitlist" className="ls-pill">Creator waitlist</a>
+          <Image src="/logo-vertical-light.png" alt="NatureMe" width={78} height={63} priority />
+          <p className="ls-tagline">Less scrolling. More wandering.</p>
         </header>
         <div className="ls-hero-copy">
-          <h1>Go Outside</h1>
-          <p>Nature audio that only plays when you get there.</p>
-        </div>
-        <a href="#about" className="ls-soon">
-          Launching soon
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
-        </a>
-      </section>
-
-      <section id="about" className="ls-wrap ls-statement">
-        <p>NatureMe pins stories, meditations and audiobooks to real places, so the only way to hear them is to go outside.</p>
-      </section>
-
-      <section className="ls-wrap ls-arrive">
-        <div className="ls-arrive-copy">
-          <p className="ls-kicker">The home of nature audio</p>
-          <h2>Some stories only play where they happened.</h2>
-          <p>Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
-          <div className="ls-arrive-ctas">
-            <a href="#waitlist" className="ls-submit">Join the creator waitlist</a>
-            <a href="#waitlist" className="ls-ghost">I just want to listen</a>
+          <p className="ls-kicker">Good things are waiting outside</p>
+          <h1>Some stories only play where they happened.</h1>
+          <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
+          <div className="ls-ctas">
+            <a href="#waitlist" className="ls-btn">Join the creator waitlist</a>
+            <a href="#waitlist" className="ls-btn ls-btn-ghost">I just want to listen</a>
           </div>
         </div>
-        <div className="ls-story" aria-label="Example of a locked story">
-          <div className="ls-story-map">
-            <span className="ls-story-lock"><Lock size={14} />Locked</span>
-          </div>
-          <div className="ls-story-meta">
-            <p className="ls-kicker">Audio story · 9 min</p>
-            <p className="ls-story-title">Why the oaks here lean the way they do</p>
-            <p className="ls-story-by">By a local naturalist</p>
-          </div>
-          <div className="ls-story-place">
-            <div><span>Only playable at Lindenwood Park</span><span className="ls-story-dist">0.4 mi</span></div>
-            <div className="ls-story-bar"><div /></div>
-            <p>5 minute walk. Hear it once there and it&apos;s yours to replay anywhere.</p>
-          </div>
-        </div>
+        <figure className="ls-photo">
+          <Image src="/landing/woodland-trail.jpg" alt="A grassy trail through a sunlit oak wood" fill sizes="(max-width: 860px) 100vw, 45vw" priority />
+          <figcaption className="ls-waiting">
+            <p className="ls-kicker">Waiting at the woodland trail</p>
+            <p className="ls-waiting-title">A slower kind of morning</p>
+            <p className="ls-waiting-meta">Meditation · 12 min · Unlocks on arrival</p>
+          </figcaption>
+        </figure>
+        <p className="ls-fresh">Made for fresh air, not your feed.</p>
       </section>
 
       <section className="ls-wrap ls-helps">
@@ -88,7 +68,7 @@ export default function ComingSoonPage() {
         <Waitlist />
       </section>
 
-      <section className="ls-wrap ls-statement ls-closing">
+      <section className="ls-wrap ls-closing">
         <p>Go outside and hear where you are.</p>
       </section>
 
