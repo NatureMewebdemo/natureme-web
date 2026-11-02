@@ -18,6 +18,17 @@ const HELPS = [
   { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
+/** Screens from the live NatureMe meditation app, shown in phone frames. */
+const APP_SCREENS = [
+  { src: "/landing/app-explore.jpg", alt: "The Explore tab: illustrated playlists like Start Here, Sit Spot Course and Wander Course" },
+  { src: "/landing/app-sharing-your-story.jpg", alt: "The Sharing Your Story course, with a Continue button and its sessions" },
+  { src: "/landing/app-sit-spot.jpg", alt: "The Sit Spot Course, two of ten sessions done" },
+];
+
+// TODO: the store listings of the live app.
+const APP_STORE_URL = "#app";
+const GOOGLE_PLAY_URL = "#app";
+
 /** The public launching-soon page: lime ground, a forest river photo with a story waiting on it, then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
@@ -56,6 +67,25 @@ export default function ComingSoonPage() {
               <h3>{title}</h3>
               <p>{body}</p>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="app" className="ls-wrap ls-app">
+        <div className="ls-app-copy">
+          <h2>A little nature, right now.</h2>
+          <p>Our first version is already live. Download NatureMe and enjoy nature meditations while we build the next chapter.</p>
+          <div className="ls-ctas">
+            <a href={APP_STORE_URL} className="ls-btn">App Store</a>
+            <a href={GOOGLE_PLAY_URL} className="ls-btn">Google Play</a>
+          </div>
+        </div>
+        <div className="ls-phones">
+          {APP_SCREENS.map(({ src, alt }) => (
+            <div key={src} className="ls-phone">
+              <span className="ls-phone-island" aria-hidden="true" />
+              <Image src={src} alt={alt} width={590} height={1279} sizes="(max-width: 760px) 70vw, 300px" />
+            </div>
           ))}
         </div>
       </section>

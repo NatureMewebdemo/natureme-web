@@ -55,6 +55,24 @@ body:has(.landing) .dock{display:none}
 .ls-help h3{font-weight:700;font-size:25px;letter-spacing:-.015em;line-height:1.15}
 .ls-help p{color:var(--ls-muted);font-size:17px;max-width:34em}
 
+/* the live app: three screens in iPhone frames, the middle one raised */
+.ls-app{padding-block:120px 40px;display:flex;flex-direction:column;align-items:center;gap:56px}
+.ls-app-copy{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.ls-app-copy h2{font-size:clamp(38px,4.4vw,60px);font-weight:800;line-height:1.02;letter-spacing:-.03em}
+.ls-app-copy p{max-width:32em;color:var(--ls-muted)}
+.ls-app-copy .ls-ctas{justify-content:center}
+.ls-phones{width:100%;display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,3vw,44px);padding-top:40px}
+.ls-phone{position:relative;flex:0 1 290px;min-width:0;padding:9px;border-radius:46px;background:#0E1311;box-shadow:inset 0 0 0 1.5px #3B4440,inset 0 0 0 4px #0E1311,inset 0 0 0 5px #252C29,0 40px 70px -24px rgba(32,60,48,.55),0 12px 24px -12px rgba(32,60,48,.4)}
+.ls-phone img{display:block;width:100%;height:auto;border-radius:37px}
+.ls-phone-island{position:absolute;z-index:1;top:19px;left:50%;width:31%;height:23px;transform:translateX(-50%);border-radius:999px;background:#000}
+.ls-phone:nth-child(2){margin-top:-40px}
+@media (prefers-reduced-motion:no-preference){.ls-phone{transition:transform .4s cubic-bezier(.2,.7,.2,1)}.ls-phone:hover{transform:translateY(-8px)}}
+@media (max-width:760px){
+  .ls-phones{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding:40px 24px 32px;margin-inline:-24px;width:calc(100% + 48px);scrollbar-width:none}
+  .ls-phone{flex:0 0 68%;scroll-snap-align:center}
+  .ls-phone:nth-child(2){margin-top:0}
+}
+
 /* waitlist: a forest card with lime actions */
 .ls-join{padding-block:120px;display:flex;flex-wrap:wrap;gap:56px}
 .ls-join-copy{flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px}
