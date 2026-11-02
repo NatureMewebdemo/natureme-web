@@ -84,7 +84,7 @@ body:has(.landing) .dock{display:none}
 
 /* the live app: three screens in iPhone frames, the middle one raised */
 .ls-app{padding-block:120px 40px;display:flex;flex-direction:column;align-items:center;gap:56px}
-.ls-app-copy{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.ls-app-copy{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
 .ls-app-copy h2{font-size:clamp(38px,4.4vw,60px);font-weight:800;line-height:1.02;letter-spacing:-.03em}
 .ls-app-copy p{max-width:32em;color:var(--ls-muted)}
 .ls-app-copy .ls-ctas{justify-content:center}
@@ -131,6 +131,8 @@ body:has(.landing) .dock{display:none}
 /* small palette shapes scattered to the right of the closing line */
 .ls-scatter{position:relative}
 .ls-scatter-side{flex:1 1 360px;align-self:stretch;min-height:200px;max-width:520px}
+.ls-scatter-ring{position:absolute;inset:-56px -18vw -48px;z-index:-1;pointer-events:none}
+@media (max-width:860px){.ls-scatter-ring{inset:-56px -6px -44px}.ls-scatter-ring svg:nth-child(2),.ls-scatter-ring svg:nth-child(7){display:none}}
 .ls-scatter-under{height:90px;max-width:30em;margin-top:14px}
 .ls-scatter svg{position:absolute;overflow:visible}
 @media (prefers-reduced-motion:no-preference){.ls-scatter svg{animation:ls-bob 6s ease-in-out infinite alternate}}

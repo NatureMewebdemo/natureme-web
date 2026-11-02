@@ -44,6 +44,20 @@ const SCATTER_WIDE: [string, string, number, number, number, number][] = [
   [SHAPES.leaf, "var(--ls-violet)", 88, 54, 30, -14],
 ];
 
+/** A ring around the centred live-app copy: shapes sit on the sides and above and below, never over the text. */
+const SCATTER_RING: [string, string, number, number, number, number][] = [
+  [SHAPES.star, "var(--ls-violet)", 4, 10, 28, -10],
+  [SHAPES.circle, "var(--ls-violet-soft)", 12, 46, 16, 0],
+  [SHAPES.leaf, "var(--ls-forest)", 3, 78, 24, 20],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 30, 0, 16, 0],
+  [SHAPES.circle, "var(--ls-forest)", 68, 2, 12, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 90, 8, 30, -18],
+  [SHAPES.diamond, "var(--ls-forest)", 84, 50, 22, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 94, 82, 20, 12],
+  [SHAPES.circle, "var(--ls-violet)", 26, 96, 14, 0],
+  [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
+];
+
 /** Small shapes placed by percentage inside a positioned box, each bobbing gently. */
 function Scatter({ items, className }: { items: typeof SCATTER; className: string }) {
   return (
@@ -118,6 +132,7 @@ export default function ComingSoonPage() {
 
       <section id="app" className="ls-wrap ls-app">
         <div className="ls-app-copy">
+          <Scatter items={SCATTER_RING} className="ls-scatter-ring" />
           <h2>A little nature, right now.</h2>
           <p>Our first version is already live. Download NatureMe and enjoy nature meditations while we build the next chapter.</p>
           <div className="ls-ctas">
