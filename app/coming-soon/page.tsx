@@ -1,81 +1,160 @@
 import Image from "next/image";
-import { Calendar, Globe, Lock, MapPin, Walk } from "@/components/icons";
+import { Bricolage_Grotesque } from "next/font/google";
+import { Globe as GlobeMap } from "@/components/landing/Globe";
 import { Waitlist } from "@/components/landing/Waitlist";
 import "./landing.css";
 
+const grotesk = Bricolage_Grotesque({ variable: "--font-grotesk", weight: ["600", "700", "800"], subsets: ["latin"] });
+
 export const metadata = {
-  title: "Go Outside · NatureMe",
-  description: "Nature audio that only plays when you get there. Launching soon. Creators, join the waitlist.",
+  title: "Some stories only play where they happened · NatureMe",
+  description: "Stories, meditations and audiobooks pinned to real places. Launching soon. Creators, join the waitlist.",
 };
 
-const HELPS = [
-  { Icon: MapPin, title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
-  { Icon: Walk, title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
-  { Icon: Calendar, title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
-  { Icon: Globe, title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
+/** Bold flat shapes, one per card, in the brand palette. */
+const SHAPES = {
+  leaf: "M40 0H100V60A40 40 0 0 1 60 100H0V40A40 40 0 0 1 40 0Z",
+  diamond: "M50 0L100 50L50 100L0 50Z",
+  star: "M0 0Q50 34 100 0Q66 50 100 100Q50 66 0 100Q34 50 0 0Z",
+  circle: "M50 0A50 50 0 1 1 49.99 0Z",
+};
+
+/** Small shapes scattered beside the closing line: [shape, color, left %, top %, size px, rotation deg]. */
+const SCATTER: [string, string, number, number, number, number][] = [
+  [SHAPES.leaf, "var(--ls-violet)", 6, 18, 34, -12],
+  [SHAPES.star, "var(--ls-violet-soft)", 30, 2, 22, 8],
+  [SHAPES.circle, "var(--ls-forest)", 52, 30, 16, 0],
+  [SHAPES.diamond, "var(--ls-forest)", 78, 8, 28, 0],
+  [SHAPES.circle, "var(--ls-violet)", 18, 62, 22, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 40, 78, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 66, 58, 30, -6],
+  [SHAPES.leaf, "var(--ls-forest)", 90, 50, 20, 24],
+  [SHAPES.star, "var(--ls-forest)", 4, 88, 16, 14],
 ];
 
-/** The public launching-soon page: a full-screen forest video, "Go Outside", then what NatureMe does and the creator waitlist. */
+/** A second, wider arrangement for under the creator copy. */
+const SCATTER_WIDE: [string, string, number, number, number, number][] = [
+  [SHAPES.diamond, "var(--ls-violet)", 2, 30, 24, 0],
+  [SHAPES.circle, "var(--ls-forest)", 14, 70, 14, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 24, 12, 26, -8],
+  [SHAPES.leaf, "var(--ls-forest)", 38, 52, 22, 18],
+  [SHAPES.circle, "var(--ls-violet)", 52, 16, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 63, 60, 20, 10],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 76, 22, 16, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 88, 54, 30, -14],
+];
+
+/** A ring around the centred live-app copy: shapes sit on the sides and above and below, never over the text. */
+const SCATTER_RING: [string, string, number, number, number, number][] = [
+  [SHAPES.star, "var(--ls-violet)", 4, 10, 28, -10],
+  [SHAPES.circle, "var(--ls-violet-soft)", 12, 46, 16, 0],
+  [SHAPES.leaf, "var(--ls-forest)", 3, 78, 24, 20],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 30, 0, 16, 0],
+  [SHAPES.circle, "var(--ls-forest)", 68, 2, 12, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 90, 8, 30, -18],
+  [SHAPES.diamond, "var(--ls-forest)", 84, 50, 22, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 94, 82, 20, 12],
+  [SHAPES.circle, "var(--ls-violet)", 26, 96, 14, 0],
+  [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
+];
+
+/** A light sprinkle for the hero: three to the right of the headline, two under the buttons. */
+const SCATTER_HERO: [string, string, number, number, number, number][] = [
+  [SHAPES.star, "var(--ls-violet)", 93, 6, 26, -8],
+  [SHAPES.circle, "var(--ls-forest)", 97, 30, 12, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 90, 48, 16, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 8, 88, 22, 16],
+  [SHAPES.circle, "var(--ls-violet)", 52, 86, 12, 0],
+];
+
+/** Small shapes placed by percentage inside a positioned box, each bobbing gently. */
+function Scatter({ items, className }: { items: typeof SCATTER; className: string }) {
+  return (
+    <div className={`ls-scatter ${className}`} aria-hidden="true">
+      {items.map(([shape, color, left, top, size, turn], i) => (
+        <svg key={i} viewBox="0 0 100 100" style={{ left: `${left}%`, top: `${top}%`, width: size, height: size, rotate: `${turn}deg`, animationDelay: `${-i * 0.7}s` }}>
+          <path d={shape} fill={color} />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+const HELPS = [
+  { shape: SHAPES.leaf, color: "var(--ls-lime)", title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
+  { shape: SHAPES.diamond, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
+  { shape: SHAPES.star, color: "var(--ls-violet-soft)", title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
+  { shape: SHAPES.circle, color: "var(--ls-forest)", title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
+];
+
+/** Screens from the live NatureMe meditation app, shown in phone frames. */
+const APP_SCREENS = [
+  { src: "/landing/app-explore.jpg", alt: "The Explore tab: illustrated playlists like Start Here, After the Intro, Sit Spot Course and Wander Course" },
+  { src: "/landing/app-sharing-your-story.jpg", alt: "The Sharing Your Story course, with a Continue button and its sessions" },
+  { src: "/landing/app-sit-spot.jpg", alt: "The Sit Spot Course: ten sessions, 95 minutes, from the Wilderness Awareness School" },
+];
+
+const APP_STORE_URL = "https://apps.apple.com/us/app/natureme-nature-meditation/id6746290732";
+const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=eco.amphibian.natureme";
+
+/** The public launching-soon page: lime ground, a spinning globe of locked stories, then what NatureMe does and the creator waitlist. */
 export default function ComingSoonPage() {
   return (
-    <div className="landing">
-      <section className="ls-hero">
-        <video className="ls-hero-video" src="/landing/go-outside.mp4" poster="/landing/go-outside-poster.jpg" autoPlay muted loop playsInline preload="auto" aria-hidden="true" />
-        <div className="ls-hero-shade" aria-hidden="true" />
-        <header className="ls-top">
-          <Image src="/logo-wordmark.png" alt="NatureMe" width={163} height={24} priority />
-          <a href="#waitlist" className="ls-pill">Creator waitlist</a>
-        </header>
-        <div className="ls-hero-copy">
-          <h1>Go Outside</h1>
-          <p>Nature audio that only plays when you get there.</p>
-        </div>
-        <a href="#about" className="ls-soon">
-          Launching soon
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+    <div className={`landing ${grotesk.variable}`}>
+      <header className="ls-top">
+        <a href="#top" className="ls-brand" aria-label="NatureMe">
+          <Image src="/logo-mark-on-violet.png" alt="" width={386} height={480} priority />
+          <Image src="/logo-wordmark-on-violet.png" alt="NatureMe" width={815} height={120} priority />
         </a>
-      </section>
+        <a href="#waitlist" className="ls-top-cta">Join the waitlist</a>
+      </header>
 
-      <section id="about" className="ls-wrap ls-statement">
-        <p>NatureMe pins stories, meditations and audiobooks to real places, so the only way to hear them is to go outside.</p>
-      </section>
-
-      <section className="ls-wrap ls-arrive">
-        <div className="ls-arrive-copy">
-          <p className="ls-kicker">The home of nature audio</p>
-          <h2>Some stories only play where they happened.</h2>
-          <p>Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
-          <div className="ls-arrive-ctas">
-            <a href="#waitlist" className="ls-submit">Join the creator waitlist</a>
-            <a href="#waitlist" className="ls-ghost">I just want to listen</a>
+      <section id="top" className="ls-hero">
+        <div className="ls-hero-copy">
+          <Scatter items={SCATTER_HERO} className="ls-scatter-hero" />
+          <h1>Some stories only play <span className="ls-accent">where they happened.</span></h1>
+          <p className="ls-lede">Stories, meditations and audiobooks pinned to real places. Press play and nothing happens. Walk there, and it opens.</p>
+          <div className="ls-ctas">
+            <a href="#waitlist" className="ls-btn">Join the creator waitlist</a>
+            <a href="#waitlist" className="ls-btn ls-btn-ghost">I just want to listen</a>
           </div>
         </div>
-        <div className="ls-story" aria-label="Example of a locked story">
-          <div className="ls-story-map">
-            <span className="ls-story-lock"><Lock size={14} />Locked</span>
-          </div>
-          <div className="ls-story-meta">
-            <p className="ls-kicker">Audio story · 9 min</p>
-            <p className="ls-story-title">Why the oaks here lean the way they do</p>
-            <p className="ls-story-by">By a local naturalist</p>
-          </div>
-          <div className="ls-story-place">
-            <div><span>Only playable at Lindenwood Park</span><span className="ls-story-dist">0.4 mi</span></div>
-            <div className="ls-story-bar"><div /></div>
-            <p>5 minute walk. Hear it once there and it&apos;s yours to replay anywhere.</p>
+        <figure className="ls-photo">
+          <GlobeMap />
+        </figure>
+      </section>
+
+      <section className="ls-band">
+        <div className="ls-wrap ls-helps">
+          <h2>NatureMe helps you…</h2>
+          <div className="ls-cards">
+            {HELPS.map(({ shape, color, title, body }) => (
+              <article key={title} className="ls-help">
+                <svg className="ls-help-shape" viewBox="0 0 100 100" aria-hidden="true"><path d={shape} fill={color} /></svg>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="ls-wrap ls-helps">
-        <h2>NatureMe helps you…</h2>
-        <div className="ls-cards">
-          {HELPS.map(({ Icon, title, body }) => (
-            <article key={title} className="ls-help">
-              <span className="ls-help-icon"><Icon size={26} /></span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
+      <section id="app" className="ls-wrap ls-app">
+        <div className="ls-app-copy">
+          <Scatter items={SCATTER_RING} className="ls-scatter-ring" />
+          <h2>A little nature, <span className="ls-accent">right now.</span></h2>
+          <p>Our first version is already live. Download NatureMe and enjoy nature meditations while we build the next chapter.</p>
+          <div className="ls-ctas">
+            <a href={APP_STORE_URL} className="ls-btn" target="_blank" rel="noopener">App Store</a>
+            <a href={GOOGLE_PLAY_URL} className="ls-btn" target="_blank" rel="noopener">Google Play</a>
+          </div>
+        </div>
+        <div className="ls-phones">
+          {APP_SCREENS.map(({ src, alt }) => (
+            <div key={src} className="ls-phone">
+              <span className="ls-phone-island" aria-hidden="true" />
+              <Image src={src} alt={alt} width={780} height={1691} sizes="(max-width: 760px) 70vw, 300px" />
+            </div>
           ))}
         </div>
       </section>
@@ -84,12 +163,14 @@ export default function ComingSoonPage() {
         <div className="ls-join-copy">
           <h2>Give people a reason to go outside.</h2>
           <p>Publish any kind of audio, set your own price or make it free, and earn for every minute listened. Founding creators get early access before launch.</p>
+          <Scatter items={SCATTER_WIDE} className="ls-scatter-under" />
         </div>
         <Waitlist />
       </section>
 
-      <section className="ls-wrap ls-statement ls-closing">
-        <p>Go outside and hear where you are.</p>
+      <section className="ls-wrap ls-closing">
+        <p><span className="ls-accent">Go outside and hear where you are.</span></p>
+        <Scatter items={SCATTER} className="ls-scatter-side" />
       </section>
 
       <footer className="ls-foot">
