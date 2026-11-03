@@ -169,7 +169,7 @@ export default function ComingSoonPage() {
       </section>
 
       <section className="ls-wrap ls-closing">
-        <p>Go outside and hear where you are.</p>
+        <p><span className="ls-accent">Go outside and hear where you are.</span></p>
         <Scatter items={SCATTER} className="ls-scatter-side" />
       </section>
 
