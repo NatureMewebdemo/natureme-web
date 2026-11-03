@@ -21,50 +21,50 @@ const SHAPES = {
 
 /** Small shapes scattered beside the closing line: [shape, color, left %, top %, size px, rotation deg]. */
 const SCATTER: [string, string, number, number, number, number][] = [
-  [SHAPES.leaf, "var(--ls-cream)", 6, 18, 34, -12],
+  [SHAPES.leaf, "var(--ls-violet)", 6, 18, 34, -12],
   [SHAPES.star, "var(--ls-violet-soft)", 30, 2, 22, 8],
-  [SHAPES.circle, "var(--ls-lime)", 52, 30, 16, 0],
-  [SHAPES.diamond, "var(--ls-lime)", 78, 8, 28, 0],
-  [SHAPES.circle, "var(--ls-cream)", 18, 62, 22, 0],
+  [SHAPES.circle, "var(--ls-forest)", 52, 30, 16, 0],
+  [SHAPES.diamond, "var(--ls-forest)", 78, 8, 28, 0],
+  [SHAPES.circle, "var(--ls-violet)", 18, 62, 22, 0],
   [SHAPES.diamond, "var(--ls-violet-soft)", 40, 78, 18, 0],
-  [SHAPES.star, "var(--ls-cream)", 66, 58, 30, -6],
-  [SHAPES.leaf, "var(--ls-lime)", 90, 50, 20, 24],
-  [SHAPES.star, "var(--ls-lime)", 4, 88, 16, 14],
+  [SHAPES.star, "var(--ls-violet)", 66, 58, 30, -6],
+  [SHAPES.leaf, "var(--ls-forest)", 90, 50, 20, 24],
+  [SHAPES.star, "var(--ls-forest)", 4, 88, 16, 14],
 ];
 
 /** A second, wider arrangement for under the creator copy. */
 const SCATTER_WIDE: [string, string, number, number, number, number][] = [
-  [SHAPES.diamond, "var(--ls-cream)", 2, 30, 24, 0],
-  [SHAPES.circle, "var(--ls-lime)", 14, 70, 14, 0],
+  [SHAPES.diamond, "var(--ls-violet)", 2, 30, 24, 0],
+  [SHAPES.circle, "var(--ls-forest)", 14, 70, 14, 0],
   [SHAPES.star, "var(--ls-violet-soft)", 24, 12, 26, -8],
-  [SHAPES.leaf, "var(--ls-lime)", 38, 52, 22, 18],
-  [SHAPES.circle, "var(--ls-cream)", 52, 16, 18, 0],
-  [SHAPES.star, "var(--ls-cream)", 63, 60, 20, 10],
+  [SHAPES.leaf, "var(--ls-forest)", 38, 52, 22, 18],
+  [SHAPES.circle, "var(--ls-violet)", 52, 16, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 63, 60, 20, 10],
   [SHAPES.diamond, "var(--ls-violet-soft)", 76, 22, 16, 0],
-  [SHAPES.leaf, "var(--ls-cream)", 88, 54, 30, -14],
+  [SHAPES.leaf, "var(--ls-violet)", 88, 54, 30, -14],
 ];
 
 /** A ring around the centred live-app copy: shapes sit on the sides and above and below, never over the text. */
 const SCATTER_RING: [string, string, number, number, number, number][] = [
-  [SHAPES.star, "var(--ls-cream)", 4, 10, 28, -10],
+  [SHAPES.star, "var(--ls-violet)", 4, 10, 28, -10],
   [SHAPES.circle, "var(--ls-violet-soft)", 12, 46, 16, 0],
-  [SHAPES.leaf, "var(--ls-lime)", 3, 78, 24, 20],
+  [SHAPES.leaf, "var(--ls-forest)", 3, 78, 24, 20],
   [SHAPES.diamond, "var(--ls-violet-soft)", 30, 0, 16, 0],
-  [SHAPES.circle, "var(--ls-lime)", 68, 2, 12, 0],
-  [SHAPES.leaf, "var(--ls-cream)", 90, 8, 30, -18],
-  [SHAPES.diamond, "var(--ls-lime)", 84, 50, 22, 0],
+  [SHAPES.circle, "var(--ls-forest)", 68, 2, 12, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 90, 8, 30, -18],
+  [SHAPES.diamond, "var(--ls-forest)", 84, 50, 22, 0],
   [SHAPES.star, "var(--ls-violet-soft)", 94, 82, 20, 12],
-  [SHAPES.circle, "var(--ls-cream)", 26, 96, 14, 0],
-  [SHAPES.star, "var(--ls-lime)", 72, 95, 16, -6],
+  [SHAPES.circle, "var(--ls-violet)", 26, 96, 14, 0],
+  [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
 ];
 
 /** A light sprinkle for the hero: three to the right of the headline, two under the buttons. */
 const SCATTER_HERO: [string, string, number, number, number, number][] = [
-  [SHAPES.star, "var(--ls-cream)", 93, 6, 26, -8],
-  [SHAPES.circle, "var(--ls-lime)", 97, 30, 12, 0],
+  [SHAPES.star, "var(--ls-violet)", 93, 6, 26, -8],
+  [SHAPES.circle, "var(--ls-forest)", 97, 30, 12, 0],
   [SHAPES.diamond, "var(--ls-violet-soft)", 90, 48, 16, 0],
-  [SHAPES.leaf, "var(--ls-cream)", 8, 88, 22, 16],
-  [SHAPES.circle, "var(--ls-cream)", 52, 86, 12, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 8, 88, 22, 16],
+  [SHAPES.circle, "var(--ls-violet)", 52, 86, 12, 0],
 ];
 
 /** Small shapes placed by percentage inside a positioned box, each bobbing gently. */

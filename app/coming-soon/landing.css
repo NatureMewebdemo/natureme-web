@@ -1,15 +1,15 @@
 /* Coming-soon page: full-bleed, outside the listener app's phone column.
-   Lama's NatureMe branding palette (dark view since 2026-11-03: ink ground, cream + lime type): #1D1E18 ink (was #203C30 forest), #D4F76B lime, #F5F3E9 cream, #473198 violet.
+   Lama's NatureMe branding palette (light view since 2026-11-03: cream ground, ink + violet type, lime highlights): #1D1E18 ink (was #203C30 forest), #D4F76B lime, #F5F3E9 cream, #473198 violet.
    Violet leads: the actions, the headline's second half, the cards band, the waitlist and the footer. */
 .landing{
   --ls-forest:#1D1E18; --ls-lime:#D4F76B; --ls-cream:#F5F3E9; --ls-violet:#473198; --ls-violet-dark:#36237E;--ls-violet-soft:#A99BEB;--ls-violet-deep:#2B1B6B; --ls-on-violet:#DCD6F5;
-  --ls-muted:#BDBBB0; --ls-line:rgba(245,243,233,.16);
-  background:var(--ls-forest);color:var(--ls-cream);font-size:17px;line-height:1.5;color-scheme:dark
+  --ls-muted:#55564E; --ls-line:rgba(29,30,24,.14);
+  background:var(--ls-cream);color:var(--ls-forest);font-size:17px;line-height:1.5;color-scheme:light
 }
-.app:has(> .landing){max-width:none;padding-bottom:0;border:0;background:#1D1E18;color:#F5F3E9}
+.app:has(> .landing){max-width:none;padding-bottom:0;border:0;background:#F5F3E9;color:#1D1E18}
 /* on natureme.ai the landing is served at "/", where the Dock would otherwise render */
 body:has(.landing) .dock{display:none}
-.landing h1,.landing h2,.landing h3{font-family:var(--font-grotesk),var(--body);color:var(--ls-cream)}
+.landing h1,.landing h2,.landing h3{font-family:var(--font-grotesk),var(--body);color:var(--ls-forest)}
 .ls-wrap{max-width:1240px;margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px)) max(24px,env(safe-area-inset-right,0px))}
 .ls-kicker{color:var(--ls-violet);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 
@@ -24,15 +24,16 @@ body:has(.landing) .dock{display:none}
 .ls-top-cta:hover{transform:translateY(-1px)}
 #waitlist,#app{scroll-margin-top:88px}
 .ls-hero-copy{grid-column:1;grid-row:1;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
-.ls-accent{color:var(--ls-lime)}
-.landing .ls-hero-copy h1{color:var(--ls-cream);font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
+/* violet words with a lime marker stroke behind them */
+.ls-accent{color:var(--ls-violet);background:linear-gradient(transparent 62%,var(--ls-lime) 62%,var(--ls-lime) 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding-inline:.04em}
+.landing .ls-hero-copy h1{color:var(--ls-forest);font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
 .ls-lede{max-width:27em;font-size:clamp(16px,1.35vw,19px)}
 .ls-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .ls-btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:var(--ls-violet);color:var(--ls-cream);border:1.5px solid var(--ls-violet);font-weight:600;font-size:15px;transition:background .2s,transform .2s}
 .ls-btn:hover{background:var(--ls-violet-dark);transform:translateY(-1px)}
 /* secondary button: a quiet tinted surface with a hairline border, after Lama's reference */
-.ls-btn-ghost{background:rgba(245,243,233,.06);color:var(--ls-cream);border:1px solid rgba(245,243,233,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.ls-btn-ghost:hover{background:rgba(245,243,233,.11);border-color:rgba(245,243,233,.26)}
+.ls-btn-ghost{background:rgba(29,30,24,.05);color:var(--ls-forest);border:1px solid rgba(29,30,24,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.ls-btn-ghost:hover{background:rgba(29,30,24,.09);border-color:rgba(29,30,24,.22)}
 .ls-btn:focus-visible{outline:2px solid var(--ls-violet);outline-offset:2px}
 .ls-card :focus-visible{outline:2px solid var(--ls-lime);outline-offset:2px}
 .ls-photo{grid-column:2;grid-row:1/3;position:relative;margin:0;min-height:520px;border-top-left-radius:34% 24%;overflow:hidden;background:radial-gradient(90% 70% at 50% 38%,#5B43B8 0,#36237E 60%,#22165A 100%)}
@@ -140,6 +141,6 @@ body:has(.landing) .dock{display:none}
 @media (prefers-reduced-motion:no-preference){.ls-scatter svg{animation:ls-bob 6s ease-in-out infinite alternate}}
 @keyframes ls-bob{to{translate:0 -10px}}
 @media (max-width:760px){.ls-closing{flex-direction:column;align-items:stretch}.ls-scatter-side{flex:none;min-height:130px;max-width:none}}
-.ls-closing p{color:var(--ls-lime);max-width:16em;font-family:var(--font-grotesk),var(--body);font-weight:800;font-size:clamp(40px,6vw,88px);line-height:1;letter-spacing:-.035em;text-wrap:balance}
+.ls-closing p{color:var(--ls-violet);max-width:16em;font-family:var(--font-grotesk),var(--body);font-weight:800;font-size:clamp(40px,6vw,88px);line-height:1;letter-spacing:-.035em;text-wrap:balance}
 .ls-foot{background:var(--ls-violet);color:var(--ls-on-violet);border-radius:clamp(28px,3vw,48px) clamp(28px,3vw,48px) 0 0;margin-inline:clamp(8px,1.4vw,20px)}
 .ls-foot .ls-wrap{padding-block:28px max(28px,env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
