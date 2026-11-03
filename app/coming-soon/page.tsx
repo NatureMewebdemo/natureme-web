@@ -142,7 +142,7 @@ export default function ComingSoonPage() {
       <section id="app" className="ls-wrap ls-app">
         <div className="ls-app-copy">
           <Scatter items={SCATTER_RING} className="ls-scatter-ring" />
-          <h2>A little nature, right now.</h2>
+          <h2>A little nature, <span className="ls-accent">right now.</span></h2>
           <p>Our first version is already live. Download NatureMe and enjoy nature meditations while we build the next chapter.</p>
           <div className="ls-ctas">
             <a href={APP_STORE_URL} className="ls-btn" target="_blank" rel="noopener">App Store</a>
