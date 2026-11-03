@@ -2,7 +2,7 @@
    Lama's NatureMe branding palette: #203C30 forest, #D4F76B lime, #F5F3E9 cream, #473198 violet.
    Violet leads: the actions, the headline's second half, the cards band, the waitlist and the footer. */
 .landing{
-  --ls-forest:#203C30; --ls-lime:#D4F76B; --ls-cream:#F5F3E9; --ls-violet:#473198; --ls-violet-dark:#36237E;--ls-violet-soft:#A99BEB; --ls-on-violet:#DCD6F5;
+  --ls-forest:#203C30; --ls-lime:#D4F76B; --ls-cream:#F5F3E9; --ls-violet:#473198; --ls-violet-dark:#36237E;--ls-violet-soft:#A99BEB;--ls-violet-deep:#2B1B6B; --ls-on-violet:#DCD6F5;
   --ls-muted:#3E5A4D; --ls-line:rgba(32,60,48,.16);
   background:var(--ls-lime);color:var(--ls-forest);font-size:17px;line-height:1.5;color-scheme:light
 }
@@ -25,7 +25,7 @@ body:has(.landing) .dock{display:none}
 #waitlist,#app{scroll-margin-top:88px}
 .ls-hero-copy{grid-column:1;grid-row:1;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
 .ls-accent{color:var(--ls-violet)}
-.ls-hero-copy h1{font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
+.landing .ls-hero-copy h1{color:var(--ls-violet-deep);font-size:clamp(46px,6.4vw,100px);font-weight:800;line-height:.98;letter-spacing:-.035em;max-width:11em}
 .ls-lede{max-width:27em;font-size:clamp(16px,1.35vw,19px)}
 .ls-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .ls-btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:var(--ls-violet);color:var(--ls-cream);border:1.5px solid var(--ls-violet);font-weight:600;font-size:15px;transition:background .2s,transform .2s}
