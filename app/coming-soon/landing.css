@@ -1,8 +1,8 @@
 /* Coming-soon page: full-bleed, outside the listener app's phone column.
-   Lama's NatureMe branding palette: #203C30 forest, #D4F76B lime, #F5F3E9 cream, #473198 violet.
+   Lama's NatureMe branding palette: #1D1E18 ink (was #203C30 forest), #D4F76B lime, #F5F3E9 cream, #473198 violet.
    Violet leads: the actions, the headline's second half, the cards band, the waitlist and the footer. */
 .landing{
-  --ls-forest:#203C30; --ls-lime:#D4F76B; --ls-cream:#F5F3E9; --ls-violet:#473198; --ls-violet-dark:#36237E;--ls-violet-soft:#A99BEB;--ls-violet-deep:#2B1B6B; --ls-on-violet:#DCD6F5;
+  --ls-forest:#1D1E18; --ls-lime:#D4F76B; --ls-cream:#F5F3E9; --ls-violet:#473198; --ls-violet-dark:#36237E;--ls-violet-soft:#A99BEB;--ls-violet-deep:#2B1B6B; --ls-on-violet:#DCD6F5;
   --ls-muted:#4B4180; --ls-line:rgba(43,27,107,.16);
   background:var(--ls-lime);color:var(--ls-violet-deep);font-size:17px;line-height:1.5;color-scheme:light
 }
@@ -88,7 +88,7 @@ body:has(.landing) .dock{display:none}
 .ls-app-copy p{max-width:32em;color:var(--ls-muted)}
 .ls-app-copy .ls-ctas{justify-content:center}
 .ls-phones{width:100%;display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,3vw,44px);padding-top:40px}
-.ls-phone{position:relative;flex:0 1 290px;min-width:0;padding:9px;border-radius:46px;background:#0E1311;box-shadow:inset 0 0 0 1.5px #3B4440,inset 0 0 0 4px #0E1311,inset 0 0 0 5px #252C29,0 40px 70px -24px rgba(32,60,48,.55),0 12px 24px -12px rgba(32,60,48,.4)}
+.ls-phone{position:relative;flex:0 1 290px;min-width:0;padding:9px;border-radius:46px;background:#0E1311;box-shadow:inset 0 0 0 1.5px #3B4440,inset 0 0 0 4px #0E1311,inset 0 0 0 5px #252C29,0 40px 70px -24px rgba(29,30,24,.55),0 12px 24px -12px rgba(29,30,24,.4)}
 .ls-phone img{display:block;width:100%;height:auto;border-radius:37px}
 .ls-phone-island{position:absolute;z-index:1;top:19px;left:50%;width:31%;height:23px;transform:translateX(-50%);border-radius:999px;background:#000}
 .ls-phone:nth-child(2){margin-top:-40px}
