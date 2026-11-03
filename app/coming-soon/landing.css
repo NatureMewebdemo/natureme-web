@@ -20,7 +20,7 @@ body:has(.landing) .dock{display:none}
 .ls-brand{display:flex;align-items:center;gap:10px}
 .ls-brand img:first-child{height:36px;width:auto}
 .ls-brand img:last-child{height:20px;width:auto}
-.ls-top-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ls-lime);color:var(--ls-violet);font-weight:700;font-size:15px;transition:transform .2s}
+.ls-top-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ls-lime);color:var(--ls-forest);font-weight:700;font-size:15px;transition:transform .2s}
 .ls-top-cta:hover{transform:translateY(-1px)}
 #waitlist,#app{scroll-margin-top:88px}
 .ls-hero-copy{grid-column:1;grid-row:1;align-self:start;padding:28px 0 40px clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:22px}
