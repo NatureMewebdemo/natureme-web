@@ -11,60 +11,60 @@ export const metadata = {
   description: "Stories, meditations and audiobooks pinned to real places. Launching soon. Creators, join the waitlist.",
 };
 
-/** Small nature forms (leaf, sprig, acorn, pebble), drawn flat in the palette's earthier tones. */
+/** Bold flat shapes, one per card, in the brand palette. */
 const SHAPES = {
-  leaf: "M50 4C80 24 86 58 54 86L52 98H48L46 86C14 58 20 24 50 4Z",
-  sprig: "M48 30H52V100H48ZM50 0C62 12 62 26 50 34C38 26 38 12 50 0ZM48 62C36 66 20 60 12 44C28 40 42 46 48 58ZM52 50C64 54 80 48 88 32C72 28 58 34 52 46Z",
-  acorn: "M47 0H53V12H47ZM18 38C18 20 34 10 50 10C66 10 82 20 82 38ZM24 42H76C76 70 64 90 50 98C36 90 24 70 24 42Z",
-  pebble: "M30 18C46 4 78 8 90 30C100 50 92 78 68 88C44 98 14 90 6 64C0 44 14 30 30 18Z",
+  leaf: "M40 0H100V60A40 40 0 0 1 60 100H0V40A40 40 0 0 1 40 0Z",
+  diamond: "M50 0L100 50L50 100L0 50Z",
+  star: "M0 0Q50 34 100 0Q66 50 100 100Q50 66 0 100Q34 50 0 0Z",
+  circle: "M50 0A50 50 0 1 1 49.99 0Z",
 };
 
 /** Small shapes scattered beside the closing line: [shape, color, left %, top %, size px, rotation deg]. */
 const SCATTER: [string, string, number, number, number, number][] = [
-  [SHAPES.leaf, "var(--ls-moss)", 6, 18, 34, -12],
-  [SHAPES.acorn, "var(--ls-bark)", 30, 2, 22, 8],
-  [SHAPES.pebble, "var(--ls-clay)", 52, 30, 16, 0],
-  [SHAPES.sprig, "var(--ls-moss)", 78, 8, 28, 0],
-  [SHAPES.pebble, "var(--ls-clay)", 18, 62, 22, 0],
-  [SHAPES.sprig, "var(--ls-moss)", 40, 78, 18, 0],
-  [SHAPES.acorn, "var(--ls-bark)", 66, 58, 30, -6],
-  [SHAPES.leaf, "var(--ls-violet)", 90, 50, 20, 24],
-  [SHAPES.acorn, "var(--ls-bark)", 4, 88, 16, 14],
+  [SHAPES.leaf, "var(--ls-violet)", 6, 18, 34, -12],
+  [SHAPES.star, "var(--ls-violet-soft)", 30, 2, 22, 8],
+  [SHAPES.circle, "var(--ls-forest)", 52, 30, 16, 0],
+  [SHAPES.diamond, "var(--ls-forest)", 78, 8, 28, 0],
+  [SHAPES.circle, "var(--ls-violet)", 18, 62, 22, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 40, 78, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 66, 58, 30, -6],
+  [SHAPES.leaf, "var(--ls-forest)", 90, 50, 20, 24],
+  [SHAPES.star, "var(--ls-forest)", 4, 88, 16, 14],
 ];
 
 /** A second, wider arrangement for under the creator copy. */
 const SCATTER_WIDE: [string, string, number, number, number, number][] = [
-  [SHAPES.sprig, "var(--ls-moss)", 2, 30, 24, 0],
-  [SHAPES.pebble, "var(--ls-clay)", 14, 70, 14, 0],
-  [SHAPES.acorn, "var(--ls-bark)", 24, 12, 26, -8],
-  [SHAPES.leaf, "var(--ls-moss)", 38, 52, 22, 18],
-  [SHAPES.pebble, "var(--ls-clay)", 52, 16, 18, 0],
-  [SHAPES.acorn, "var(--ls-bark)", 63, 60, 20, 10],
-  [SHAPES.sprig, "var(--ls-moss)", 76, 22, 16, 0],
+  [SHAPES.diamond, "var(--ls-violet)", 2, 30, 24, 0],
+  [SHAPES.circle, "var(--ls-forest)", 14, 70, 14, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 24, 12, 26, -8],
+  [SHAPES.leaf, "var(--ls-forest)", 38, 52, 22, 18],
+  [SHAPES.circle, "var(--ls-violet)", 52, 16, 18, 0],
+  [SHAPES.star, "var(--ls-violet)", 63, 60, 20, 10],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 76, 22, 16, 0],
   [SHAPES.leaf, "var(--ls-violet)", 88, 54, 30, -14],
 ];
 
 /** A ring around the centred live-app copy: shapes sit on the sides and above and below, never over the text. */
 const SCATTER_RING: [string, string, number, number, number, number][] = [
-  [SHAPES.acorn, "var(--ls-bark)", 4, 10, 28, -10],
-  [SHAPES.pebble, "var(--ls-clay)", 12, 46, 16, 0],
-  [SHAPES.leaf, "var(--ls-moss)", 3, 78, 24, 20],
-  [SHAPES.sprig, "var(--ls-moss)", 30, 0, 16, 0],
-  [SHAPES.pebble, "var(--ls-clay)", 68, 2, 12, 0],
+  [SHAPES.star, "var(--ls-violet)", 4, 10, 28, -10],
+  [SHAPES.circle, "var(--ls-violet-soft)", 12, 46, 16, 0],
+  [SHAPES.leaf, "var(--ls-forest)", 3, 78, 24, 20],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 30, 0, 16, 0],
+  [SHAPES.circle, "var(--ls-forest)", 68, 2, 12, 0],
   [SHAPES.leaf, "var(--ls-violet)", 90, 8, 30, -18],
-  [SHAPES.sprig, "var(--ls-moss)", 84, 50, 22, 0],
-  [SHAPES.acorn, "var(--ls-bark)", 94, 82, 20, 12],
-  [SHAPES.pebble, "var(--ls-clay)", 26, 96, 14, 0],
-  [SHAPES.acorn, "var(--ls-bark)", 72, 95, 16, -6],
+  [SHAPES.diamond, "var(--ls-forest)", 84, 50, 22, 0],
+  [SHAPES.star, "var(--ls-violet-soft)", 94, 82, 20, 12],
+  [SHAPES.circle, "var(--ls-violet)", 26, 96, 14, 0],
+  [SHAPES.star, "var(--ls-forest)", 72, 95, 16, -6],
 ];
 
 /** A light sprinkle for the hero: three to the right of the headline, two under the buttons. */
 const SCATTER_HERO: [string, string, number, number, number, number][] = [
-  [SHAPES.acorn, "var(--ls-bark)", 93, 6, 26, -8],
-  [SHAPES.pebble, "var(--ls-clay)", 97, 30, 12, 0],
-  [SHAPES.sprig, "var(--ls-moss)", 90, 48, 16, 0],
-  [SHAPES.leaf, "var(--ls-moss)", 8, 88, 22, 16],
-  [SHAPES.pebble, "var(--ls-clay)", 52, 86, 12, 0],
+  [SHAPES.star, "var(--ls-violet)", 93, 6, 26, -8],
+  [SHAPES.circle, "var(--ls-forest)", 97, 30, 12, 0],
+  [SHAPES.diamond, "var(--ls-violet-soft)", 90, 48, 16, 0],
+  [SHAPES.leaf, "var(--ls-violet)", 8, 88, 22, 16],
+  [SHAPES.circle, "var(--ls-violet)", 52, 86, 12, 0],
 ];
 
 /** Small shapes placed by percentage inside a positioned box, each bobbing gently. */
@@ -82,9 +82,9 @@ function Scatter({ items, className }: { items: typeof SCATTER; className: strin
 
 const HELPS = [
   { shape: SHAPES.leaf, color: "var(--ls-lime)", title: "Find stories where you stand", body: "Open the map and hear what's pinned around you: local history, a guided sit, the next chapter of an audiobook." },
-  { shape: SHAPES.sprig, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
-  { shape: SHAPES.acorn, color: "var(--ls-violet-soft)", title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
-  { shape: SHAPES.pebble, color: "var(--ls-forest)", title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
+  { shape: SHAPES.diamond, color: "var(--ls-cream)", title: "Unlock them by arriving", body: "Press play at home and nothing happens. Walk there and it opens, then it's yours to replay anywhere." },
+  { shape: SHAPES.star, color: "var(--ls-violet-soft)", title: "Get your 17 minutes a day", body: "Two hours a week outside is linked to better health and wellbeing. NatureMe finds the gaps in your day for a walk." },
+  { shape: SHAPES.circle, color: "var(--ls-forest)", title: "Hear every culture's view of nature", body: "Hawaiian, Nordic, Aboriginal and Bedouin storytellers, schools of thought and faiths, all on one map." },
 ];
 
 /** Screens from the live NatureMe meditation app, shown in phone frames. */
