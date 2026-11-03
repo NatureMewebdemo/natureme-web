@@ -2,7 +2,7 @@
    Lama's NatureMe palette (2026-11-03): electric violet #6436D9 (nav, feature sections, headline accents), warm ivory #FAF7EF (page), citron #D9F45B (primary buttons, audio pins), deep plum #291747 (text).
    Violet leads: the actions, the headline's second half, the cards band, the waitlist and the footer. */
 .landing{
-  --ls-forest:#291747; --ls-lime:#D9F45B; --ls-cream:#FAF7EF; --ls-violet:#6436D9; --ls-violet-dark:#4E25B8;--ls-violet-soft:#B9A3F2;--ls-violet-deep:#291747; --ls-on-violet:#E6DDFB;
+  --ls-forest:#291747; --ls-lime:#D9F45B; --ls-cream:#FAF7EF; --ls-violet:#6436D9; --ls-moss:#6E7F45; --ls-bark:#7A5236; --ls-clay:#C08A5B; --ls-violet-dark:#4E25B8;--ls-violet-soft:#B9A3F2;--ls-violet-deep:#291747; --ls-on-violet:#E6DDFB;
   --ls-muted:#5A4D70; --ls-line:rgba(41,23,71,.14);
   background:var(--ls-cream);color:var(--ls-forest);font-size:17px;line-height:1.5;color-scheme:light
 }
