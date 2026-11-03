@@ -192,25 +192,25 @@ export function Globe() {
       >
         <defs>
           <radialGradient id="ls-ocean" cx="35%" cy="30%" r="75%">
-            <stop offset="0" stopColor="#6B55D0" />
-            <stop offset="0.6" stopColor="#3D2A8C" />
-            <stop offset="1" stopColor="#24175C" />
+            <stop offset="0" stopColor="#8A63F0" />
+            <stop offset="0.6" stopColor="#5A2FC8" />
+            <stop offset="1" stopColor="#2E1670" />
           </radialGradient>
           <radialGradient id="ls-glow" r="50%">
-            <stop offset="0.82" stopColor="#D4F76B" stopOpacity="0.28" />
-            <stop offset="1" stopColor="#D4F76B" stopOpacity="0" />
+            <stop offset="0.82" stopColor="#D9F45B" stopOpacity="0.28" />
+            <stop offset="1" stopColor="#D9F45B" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="ls-shade" cx="35%" cy="30%" r="80%">
-            <stop offset="0.5" stopColor="#1A1045" stopOpacity="0" />
-            <stop offset="1" stopColor="#1A1045" stopOpacity="0.45" />
+            <stop offset="0.5" stopColor="#170A33" stopOpacity="0" />
+            <stop offset="1" stopColor="#170A33" stopOpacity="0.45" />
           </radialGradient>
         </defs>
         {w > 0 && (
           <>
             <circle cx={cx} cy={cy} r={radius * zoom * 1.12} fill="url(#ls-glow)" opacity={Math.max(0, 1 - (zoom - 1) * 2)} />
             <circle cx={cx} cy={cy} r={radius * zoom} fill="url(#ls-ocean)" />
-            <path d={path(GRATICULE) ?? ""} fill="none" stroke="#F5F3E9" strokeOpacity="0.12" strokeWidth="0.8" />
-            <path d={path(LAND) ?? ""} fill="#D4F76B" stroke="#C3E65A" strokeWidth="0.6" />
+            <path d={path(GRATICULE) ?? ""} fill="none" stroke="#FAF7EF" strokeOpacity="0.12" strokeWidth="0.8" />
+            <path d={path(LAND) ?? ""} fill="#FAF7EF" stroke="#E2D8F6" strokeWidth="0.6" />
             <circle cx={cx} cy={cy} r={radius * zoom} fill="url(#ls-shade)" pointerEvents="none" />
             {PLACES.map((p, i) => {
               if (geoDistance(p.coords as [number, number], center) > Math.PI / 2 - 0.05) return null;
